@@ -85,12 +85,13 @@ def _parse_date(created_time) -> str:
 
 def get_today_leads_count() -> int:
     """Count leads created today."""
-    # Try aggregates first
-    cached = aggregates_service.get_today_leads_from_aggregates()
-    if cached is not None:
-        return cached
+    # NOTE: Aggregates cache disabled - today's count must be live
+    # The cached value from seed_aggregates.py becomes stale immediately
+    # cached = aggregates_service.get_today_leads_from_aggregates()
+    # if cached is not None:
+    #     return cached
     
-    # Fallback to full scan
+    # Live count from LeadTable
     try:
         leads = get_all_leads(limit=None)
         today = date.today().isoformat()
