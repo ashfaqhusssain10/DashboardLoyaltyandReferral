@@ -1,0 +1,1561 @@
+DynamoDB Table Discovery Report
+============================================================
+
+Total Tables Found: 49
+
+
+============================================================
+TABLE: ActivityLogsTable
+============================================================
+Status: ACTIVE
+Items: 0
+
+Key Schema:
+  - activityId (Partition Key)
+
+Attributes:
+  - activityId: String
+  - cartId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIdIndex: ['userId']
+  - cartIdIndex: ['cartId']
+
+============================================================
+TABLE: AddOnsTable
+============================================================
+Status: ACTIVE
+Items: 4,151
+
+Key Schema:
+  - addonsId (Partition Key)
+
+Attributes:
+  - addonsId: String
+  - categoryId: String
+  - itemId: String
+  - platterId: String
+
+Global Secondary Indexes:
+  - addonitemindex: ['itemId']
+  - categoryindex: ['categoryId']
+  - addonplatterindex: ['platterId']
+
+All Attributes Found in Sample Data:
+  - actualPrice
+  - addonsId
+  - baseQuantity
+  - categoryId
+  - categoryName
+  - created_time
+  - discountPrice
+  - itemDescription
+  - itemId
+  - itemImage
+  - itemName
+  - itemType
+  - location
+  - platterId
+  - quantity
+  - quantityUnit
+  - status
+  - suggested
+
+============================================================
+TABLE: AddressOrderTable
+============================================================
+Status: ACTIVE
+Items: 82
+
+Key Schema:
+  - addressId (Partition Key)
+
+Attributes:
+  - addressId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - addressId
+  - addressLine1
+  - addressLine2
+  - addressLine3
+  - city
+  - created_time
+  - created_user
+  - instructions
+  - label
+  - labelName
+  - landmark
+  - latitude
+  - link
+  - longitude
+  - pincode
+  - receiverName
+  - receiverPhone
+  - state
+  - type
+  - userId
+
+============================================================
+TABLE: AddressTable
+============================================================
+Status: ACTIVE
+Items: 95
+
+Key Schema:
+  - addressId (Partition Key)
+
+Attributes:
+  - addressId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - addressId
+  - addressLine1
+  - addressLine2
+  - addressLine3
+  - city
+  - created_time
+  - created_user
+  - instructions
+  - label
+  - labelName
+  - landmark
+  - latitude
+  - longitude
+  - pincode
+  - receiverName
+  - receiverPhone
+  - state
+  - type
+  - userId
+
+============================================================
+TABLE: AppFeedbackTable
+============================================================
+Status: ACTIVE
+Items: 30
+
+Key Schema:
+  - feedbackId (Partition Key)
+
+Attributes:
+  - feedbackId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIdIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - appRating
+  - experienceFeedback
+  - feedbackId
+  - ratingType
+  - suggestion
+  - userId
+
+============================================================
+TABLE: BankDetailsTable
+============================================================
+Status: ACTIVE
+Items: 8
+
+Key Schema:
+  - id (Partition Key)
+
+Attributes:
+  - id: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - accountNumber
+  - confirmAccountNumber
+  - created_time
+  - created_user
+  - holderName
+  - id
+  - ifscCode
+  - updated_time
+  - upiId
+  - userId
+
+============================================================
+TABLE: BbqSkewersTable
+============================================================
+Status: ACTIVE
+Items: 20
+
+Key Schema:
+  - skewerId (Partition Key)
+
+Attributes:
+  - itemId: String
+  - skewerId: String
+
+Global Secondary Indexes:
+  - itemIdIndex: ['itemId']
+
+All Attributes Found in Sample Data:
+  - basePrice
+  - baseQuantity
+  - categoryId
+  - created_time
+  - itemActive
+  - itemCategory
+  - itemId
+  - itemName
+  - location
+  - pack12_price
+  - pack12_serve
+  - pack16_price
+  - pack16_serve
+  - pack20_price
+  - pack20_serve
+  - pack4_price
+  - pack4_serve
+  - pack8_price
+  - pack8_serve
+  - quantityUnit
+  - skewerId
+
+============================================================
+TABLE: CartCategoriesTable
+============================================================
+Status: ACTIVE
+Items: 6,615
+
+Key Schema:
+  - cartId (Partition Key)
+  - categoryId (Sort Key)
+
+Attributes:
+  - cartId: String
+  - categoryId: String
+
+All Attributes Found in Sample Data:
+  - cartId
+  - categoryId
+  - created_time
+  - created_user
+  - itemIds
+  - nonVegItemIds
+  - premiumNonVegItemIds
+  - premiumVegItemIds
+  - vegItemIds
+
+============================================================
+TABLE: CartTable
+============================================================
+Status: ACTIVE
+Items: 1,897
+
+Key Schema:
+  - userId (Partition Key)
+  - cartId (Sort Key)
+
+Attributes:
+  - cartId: String
+  - cartStatus: String
+  - phoneNumber: String
+  - userId: String
+
+Global Secondary Indexes:
+  - phoneNumberIndex: ['phoneNumber']
+  - cartIdIndex: ['cartId']
+  - cartStatusIndex: ['cartStatus']
+  - userIdCartStatusIndex: ['userId', 'cartStatus']
+
+All Attributes Found in Sample Data:
+  - addonsAccompanimentsCost
+  - addonsId
+  - addonsIds
+  - addressId
+  - cartCategoriesId
+  - cartId
+  - cartImage
+  - cartName
+  - cartStage
+  - cartStatus
+  - couponCode
+  - createOwn
+  - created_time
+  - created_user
+  - cutleryCost
+  - cutleryIds
+  - defaultPlatterId
+  - deliveryService
+  - doorStepService
+  - eventDate
+  - eventTime
+  - extraQtyCost
+  - guestCount
+  - guestCounts
+  - maxPrice
+  - mealTime
+  - menuType
+  - minPrice
+  - occassionId
+  - phoneNumber
+  - platterMinPrice
+  - platterSubType
+  - platterType
+  - premiumItemsCost
+  - selectedServiceType
+  - setPreferences
+  - updated_time
+  - updated_user
+  - userId
+
+============================================================
+TABLE: CategoryTable
+============================================================
+Status: ACTIVE
+Items: 95
+
+Key Schema:
+  - categoryId (Partition Key)
+
+Attributes:
+  - categoryActive: String
+  - categoryId: String
+
+Global Secondary Indexes:
+  - categoryActiveIndex: ['categoryActive']
+
+All Attributes Found in Sample Data:
+  - categoryActive
+  - categoryId
+  - categoryImage
+  - categoryMandatory
+  - categoryName
+  - created_time
+
+============================================================
+TABLE: CateringRequestTable
+============================================================
+Status: ACTIVE
+Items: 19
+
+Key Schema:
+  - cateringRequestId (Partition Key)
+
+Attributes:
+  - cateringRequestId: String
+  - phoneNumber: String
+
+Global Secondary Indexes:
+  - phoneNumberIndex: ['phoneNumber']
+
+All Attributes Found in Sample Data:
+  - bookingFor
+  - budget
+  - cateringRequestId
+  - created_time
+  - created_user
+  - email
+  - eventDate
+  - guestRange
+  - mealTimes
+  - occasion
+  - phoneNumber
+  - platterPreference
+  - userName
+
+============================================================
+TABLE: CommonFeedbackTable
+============================================================
+Status: ACTIVE
+Items: 0
+
+Key Schema:
+  - commonFeedbackId (Partition Key)
+
+Attributes:
+  - commonFeedbackId: String
+  - commonFeedbackType: String
+
+Global Secondary Indexes:
+  - commonFeedbackTypeIndex: ['commonFeedbackType']
+
+============================================================
+TABLE: ContentTable
+============================================================
+Status: ACTIVE
+Items: 97
+
+Key Schema:
+  - id (Partition Key)
+
+Attributes:
+  - category: String
+  - category_order: Number
+  - contentActive: String
+  - id: String
+  - title: String
+
+Global Secondary Indexes:
+  - categoryOrderIndex: ['category', 'category_order']
+  - titleCategoryIndex: ['category', 'title']
+  - contentCategoryActiveIndex: ['category', 'contentActive']
+  - categoryIndex: ['category']
+  - contentActiveIndex: ['contentActive']
+
+All Attributes Found in Sample Data:
+  - category
+  - category_order
+  - contentActive
+  - content_details
+  - content_type
+  - created_time
+  - id
+  - images_url
+  - location
+  - title
+  - title_icon
+  - title_image
+  - videos_url
+
+============================================================
+TABLE: CounterTable
+============================================================
+Status: ACTIVE
+Items: 0
+
+Key Schema:
+  - counterId (Partition Key)
+
+Attributes:
+  - counterId: String
+  - counterType: String
+
+Global Secondary Indexes:
+  - counterTypeIndex: ['counterType']
+
+============================================================
+TABLE: CouponsTable
+============================================================
+Status: ACTIVE
+Items: 59
+
+Key Schema:
+  - id (Partition Key)
+
+Attributes:
+  - code: String
+  - id: String
+  - location: String
+  - status: String
+
+Global Secondary Indexes:
+  - locationIndex: ['location']
+  - couponActiveIndex: ['location', 'status']
+  - codeIndex: ['code']
+
+All Attributes Found in Sample Data:
+  - code
+  - couponAdvantage
+  - created_time
+  - description
+  - discountType
+  - discountValue
+  - eligibilityType
+  - eligibilityValue
+  - guestCount
+  - id
+  - imageUrl
+  - itemBaseAmount
+  - itemImage
+  - itemName
+  - location
+  - minimumOrderValue
+  - status
+  - title
+  - usageLimit
+  - validFrom
+  - validTo
+
+============================================================
+TABLE: CuisineTable
+============================================================
+Status: ACTIVE
+Items: 0
+
+Key Schema:
+  - cuisineId (Partition Key)
+
+Attributes:
+  - cuisineActive: String
+  - cuisineId: String
+
+Global Secondary Indexes:
+  - cuisineIdActiveIndex: ['cuisineId', 'cuisineActive']
+  - cuisineActiveIndex: ['cuisineActive']
+
+============================================================
+TABLE: CutleryTable
+============================================================
+Status: ACTIVE
+Items: 164
+
+Key Schema:
+  - cutleryId (Partition Key)
+
+Attributes:
+  - cutleryId: String
+  - platterId: String
+
+Global Secondary Indexes:
+  - platterIndex: ['platterId']
+
+All Attributes Found in Sample Data:
+  - active
+  - created_time
+  - cutleryDescription
+  - cutleryId
+  - cutleryImageUrl
+  - cutleryName
+  - cutleryType
+  - isIncluded
+  - isServing
+  - maxPrice
+  - maxQuantity
+  - minPrice
+  - minQuantity
+  - platterId
+  - quantityUnit
+
+============================================================
+TABLE: DefaultPlatterItemsTable
+============================================================
+Status: ACTIVE
+Items: 5,432
+
+Key Schema:
+  - itemId (Partition Key)
+  - platterId (Sort Key)
+
+Attributes:
+  - categoryId: String
+  - itemActive: String
+  - itemId: String
+  - platterId: String
+
+Global Secondary Indexes:
+  - itemActiveIndex: ['itemActive']
+  - platterCategoryIndex: ['platterId', 'categoryId']
+  - platterIndex: ['platterId']
+
+All Attributes Found in Sample Data:
+  - categoryId
+  - categoryName
+  - created_time
+  - daysOfWeek
+  - freeAccompanimentsLimit
+  - isBaseItem
+  - itemActive
+  - itemBasePrice
+  - itemDiscountFactorValue
+  - itemId
+  - itemMinPrice
+  - itemName
+  - itemQuantity
+  - itemQuantityUnit
+  - platterId
+  - platterName
+  - premium
+
+============================================================
+TABLE: DefaultPlattersCategoriesTable
+============================================================
+Status: ACTIVE
+Items: 584
+
+Key Schema:
+  - categoryId (Partition Key)
+  - platterId (Sort Key)
+
+Attributes:
+  - categoryId: String
+  - categoryPlatterActive: String
+  - platterId: String
+
+Global Secondary Indexes:
+  - platterCategoryActiveIndex: ['platterId', 'categoryPlatterActive']
+  - platterIndex: ['platterId']
+
+All Attributes Found in Sample Data:
+  - categoryId
+  - categoryImage
+  - categoryItemsLimit
+  - categoryName
+  - categoryPlatterActive
+  - category_order
+  - created_time
+  - platterId
+  - platterName
+  - premiumItemsLimit
+
+============================================================
+TABLE: DefaultPlattersTable
+============================================================
+Status: ACTIVE
+Items: 130
+
+Key Schema:
+  - platterId (Partition Key)
+
+Attributes:
+  - basePrice: Number
+  - mealTimes: String
+  - platterActive: String
+  - platterId: String
+  - platterSubType: String
+  - platterType: String
+
+Global Secondary Indexes:
+  - mealtimesIndex: ['mealTimes']
+  - platterTypeSubTypeIndex: ['platterType', 'platterSubType']
+  - platterSubTypeIndex: ['platterSubType']
+  - platterTypeBasePriceIndex: ['platterType', 'basePrice']
+  - platterSubTypeActiveIndex: ['platterSubType', 'platterActive']
+  - platterActiveIndex: ['platterActive']
+
+All Attributes Found in Sample Data:
+  - basePrice
+  - created_time
+  - eventCategories
+  - iconImageTag
+  - imageUrl
+  - maximumPax
+  - mealTimes
+  - menuLocation
+  - menuType
+  - minPrice
+  - minimumPax
+  - plateFactorValue
+  - platterActive
+  - platterCuisine
+  - platterEventType
+  - platterId
+  - platterName
+  - platterSubType
+  - platterTextTag
+  - platterType
+  - popular
+
+============================================================
+TABLE: EventExecutivesTable
+============================================================
+Status: ACTIVE
+Items: 1
+
+Key Schema:
+  - executiveId (Partition Key)
+
+Attributes:
+  - executiveActive: String
+  - executiveId: String
+
+Global Secondary Indexes:
+  - executiveActiveIndex: ['executiveActive']
+
+All Attributes Found in Sample Data:
+  - created_time
+  - executiveActive
+  - executiveAddress
+  - executiveContactNumber
+  - executiveDocuments
+  - executiveFirstName
+  - executiveId
+  - executiveImage
+  - executiveLastName
+  - executiveMail
+  - updated_time
+
+============================================================
+TABLE: FindMyPlatterTable
+============================================================
+Status: ACTIVE
+Items: 225
+
+Key Schema:
+  - findMyPlatterId (Partition Key)
+
+Attributes:
+  - findMyPlatterId: String
+  - mealTimes: String
+  - minPrice: Number
+  - platterActive: String
+  - platterId: String
+  - platterSubType: String
+  - platterType: String
+
+Global Secondary Indexes:
+  - mealtimesIndex: ['mealTimes']
+  - platterTypeSubTypeIndex: ['platterType', 'platterSubType']
+  - platterSubTypeIndex: ['platterSubType']
+  - platterIdIndex: ['platterId']
+  - platterSubTypeActiveIndex: ['platterSubType', 'platterActive']
+  - platterTypeMinPriceIndex: ['platterType', 'minPrice']
+  - platterActiveIndex: ['platterActive']
+
+All Attributes Found in Sample Data:
+  - basePrice
+  - created_time
+  - findMyPlatterId
+  - hasChicken
+  - hasEgg
+  - hasMutton
+  - hasPaneer
+  - imageUrl
+  - maximumPax
+  - mealTimes
+  - menuType
+  - minPrice
+  - minimumPax
+  - platterActive
+  - platterId
+  - platterLink
+  - platterName
+  - platterSubType
+  - platterType
+
+============================================================
+TABLE: GuestFeedbackTable
+============================================================
+Status: ACTIVE
+Items: 0
+
+Key Schema:
+  - guestFeedbackId (Partition Key)
+
+Attributes:
+  - guestFeedbackId: String
+  - plateId: String
+
+Global Secondary Indexes:
+  - plateIdIndex: ['plateId']
+
+============================================================
+TABLE: InternalUserTable
+============================================================
+Status: ACTIVE
+Items: 0
+
+Key Schema:
+  - userId (Partition Key)
+
+Attributes:
+  - emailId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - emailIndex: ['emailId']
+
+============================================================
+TABLE: ItemAccompanimentsTable
+============================================================
+Status: ACTIVE
+Items: 254
+
+Key Schema:
+  - accompanimentId (Partition Key)
+
+Attributes:
+  - accompanimentId: String
+  - active: String
+  - itemId: String
+  - platterSubType: String
+  - platterType: String
+
+Global Secondary Indexes:
+  - activeIndex: ['active']
+  - itemIdActiveIndex: ['itemId', 'active']
+  - platterTypePlatterSubTypeIndex: ['platterType', 'platterSubType']
+  - itemIdPlatterTypeIndex: ['itemId', 'platterType']
+  - itemIdIndex: ['itemId']
+
+All Attributes Found in Sample Data:
+  - accompanimentId
+  - accompanimentName
+  - accompanimentType
+  - active
+  - created_time
+  - description
+  - imageUrl
+  - isFree
+  - itemId
+  - maxPrice
+  - maxQuantity
+  - minPrice
+  - minQuantity
+  - platterSubType
+  - platterType
+  - quantityUnit
+
+============================================================
+TABLE: LeadTable
+============================================================
+Status: ACTIVE
+Items: 39
+
+Key Schema:
+  - leadId (Partition Key)
+
+Attributes:
+  - leadId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - approxGuestCount
+  - created_time
+  - leadId
+  - leadName
+  - leadNumber
+  - leadProgress
+  - leadStage
+  - moreInfo
+  - occasionDate
+  - occasionName
+  - orderId
+  - orderValue
+  - shareable
+  - userId
+
+============================================================
+TABLE: LsqCrmTable
+============================================================
+Status: ACTIVE
+Items: 0
+
+Key Schema:
+  - leadCrmId (Partition Key)
+
+Attributes:
+  - activityEvent: Number
+  - leadCrmId: String
+  - phoneNumber: String
+  - updatedLsq: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIdIndex: ['userId']
+  - activityEventIndex: ['activityEvent']
+  - updateLsqIndex: ['updatedLsq']
+  - phoneNumberIndex: ['phoneNumber']
+
+============================================================
+TABLE: MenuItemsTable
+============================================================
+Status: ACTIVE
+Items: 1,272
+
+Key Schema:
+  - itemId (Partition Key)
+
+Attributes:
+  - itemActive: String
+  - itemCategoryId: String
+  - itemId: String
+  - itemType: String
+
+Global Secondary Indexes:
+  - itemIdActiveIndex: ['itemId', 'itemActive']
+  - itemCategoryActiveIndex: ['itemCategoryId', 'itemActive']
+  - itemCategoryIndex: ['itemCategoryId']
+  - itemTypeIndex: ['itemType']
+
+All Attributes Found in Sample Data:
+  - categoryForML
+  - created_time
+  - cuisineIds
+  - freeAccompanimentsLimit
+  - isBonelessItem
+  - itemActive
+  - itemBasePrice
+  - itemBaseQuantity
+  - itemCategory
+  - itemCategoryId
+  - itemDescription
+  - itemId
+  - itemImagesUrl
+  - itemLocationCity
+  - itemMinimumPrice
+  - itemMinimumQuantity
+  - itemName
+  - itemPremium
+  - itemQuantityUnit
+  - itemType
+  - mealType
+
+============================================================
+TABLE: OccasionEventTable
+============================================================
+Status: ACTIVE
+Items: 17
+
+Key Schema:
+  - occasionId (Partition Key)
+
+Attributes:
+  - category: String
+  - occasionId: String
+  - occasionStatus: String
+
+Global Secondary Indexes:
+  - occasionStatusIndex: ['category', 'occasionStatus']
+  - categoryIndex: ['category']
+
+All Attributes Found in Sample Data:
+  - category
+  - created_time
+  - isBbqOccasion
+  - occasionId
+  - occasionImageUrl
+  - occasionName
+  - occasionStatus
+
+============================================================
+TABLE: OrderReviewFeedbackTable
+============================================================
+Status: ACTIVE
+Items: 117
+
+Key Schema:
+  - orderReviewFeedbackId (Partition Key)
+
+Attributes:
+  - orderId: String
+  - orderReviewFeedbackId: String
+  - phoneNumber: String
+  - plateId: String
+
+Global Secondary Indexes:
+  - orderPlateIdIndex: ['orderId', 'plateId']
+  - phoneNumberIndex: ['phoneNumber']
+
+All Attributes Found in Sample Data:
+  - comments
+  - correspondance
+  - created_time
+  - created_user
+  - experienceRating
+  - guestDetailedComment
+  - guestFeedback
+  - mediaUrls
+  - orderId
+  - orderReviewFeedbackId
+  - plateFeedback
+  - plateId
+  - platterRating
+  - serviceRating
+  - tasteRating
+  - userId
+
+============================================================
+TABLE: OrderReviewsTable
+============================================================
+Status: ACTIVE
+Items: 3
+
+Key Schema:
+  - orderId (Partition Key)
+
+Attributes:
+  - orderId: String
+  - plateId: String
+
+Global Secondary Indexes:
+  - orderPlateIdIndex: ['orderId', 'plateId']
+
+All Attributes Found in Sample Data:
+  - comments
+  - created_time
+  - orderId
+  - serviceRating
+  - tasteRating
+  - userId
+
+============================================================
+TABLE: OrderTable
+============================================================
+Status: ACTIVE
+Items: 772
+
+Key Schema:
+  - orderId (Partition Key)
+
+Attributes:
+  - orderId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - complimentaryDiscount
+  - couponCode
+  - created_time
+  - created_user
+  - deliveryFees
+  - deliveryFeesDetails
+  - discountAmount
+  - dynamicPriceDiscount
+  - extraDiscount
+  - grandTotal
+  - gstAmount
+  - orderId
+  - orderPlacedDate
+  - orderStatus
+  - paymentModeType
+  - paymentStatus
+  - paymentType
+  - razorpayOrderId
+  - rewardValue
+  - totalPriceWithoutCoupon
+  - totalSavedAmount
+  - updated_time
+  - updated_user
+  - userId
+
+============================================================
+TABLE: PaymentTable
+============================================================
+Status: ACTIVE
+Items: 1,002
+
+Key Schema:
+  - paymentId (Partition Key)
+
+Attributes:
+  - orderId: String
+  - paymentId: String
+  - paymentStatus: String
+  - plateId: String
+  - razorpayOrderId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIdIndex: ['userId']
+  - plateIdIndex: ['plateId']
+  - paymentStatusIndex: ['paymentStatus']
+  - razorpayOrderIndex: ['razorpayOrderId']
+  - razorpayOrderAndPlateIdIndex: ['razorpayOrderId', 'plateId']
+  - orderIndex: ['orderId']
+  - orderIdPlateIdIndex: ['orderId', 'plateId']
+
+All Attributes Found in Sample Data:
+  - amount
+  - created_time
+  - created_user
+  - initialPaymentAmount
+  - orderId
+  - paymentDate
+  - paymentDueDate
+  - paymentId
+  - paymentMethod
+  - paymentMethodType
+  - paymentStatus
+  - plateId
+  - razorpayOrderId
+  - razorpayPaymentId
+  - razorpaySignature
+  - remainingAmount
+  - splitLevel
+  - splitingAmountDetails
+  - updated_time
+  - userId
+
+============================================================
+TABLE: PlateOrdersTable
+============================================================
+Status: ACTIVE
+Items: 958
+
+Key Schema:
+  - plateId (Partition Key)
+
+Attributes:
+  - orderId: String
+  - plateId: String
+
+Global Secondary Indexes:
+  - orderIndex: ['orderId']
+
+All Attributes Found in Sample Data:
+  - addonsAccompanimentsCost
+  - addonsItems
+  - addressId
+  - cartId
+  - categories
+  - consumeAlcohol
+  - createOwn
+  - created_time
+  - created_user
+  - cutleryCost
+  - cutleryItems
+  - defaultPlatterId
+  - deliveryFeeDiffrenceFor20KM
+  - deliveryFees
+  - deliveryService
+  - discountRewardValue
+  - discountedPricePerPlate
+  - discountedServicePrice
+  - discountedTotalPrice
+  - doorStepServicePrice
+  - eventDate
+  - eventTime
+  - extraQtyCost
+  - foodInstructions
+  - gst
+  - guestCount
+  - menuOrderId
+  - occassionType
+  - orderId
+  - packagingCharge
+  - plateId
+  - plateImage
+  - plateInvoiceUrl
+  - plateName
+  - platterType
+  - premiumItemsCost
+  - pricePerPlate
+  - pureVegGuest
+  - quantityChanged
+  - savedAmount
+  - servicePrice
+  - serviceType
+  - spicyLavel
+  - tellUsMore
+  - timeInstructions
+  - totalItems
+  - totalPrice
+
+============================================================
+TABLE: PlatterSearchEventsTable
+============================================================
+Status: ACTIVE
+Items: 442
+
+Key Schema:
+  - platterSearchEventsId (Partition Key)
+
+Attributes:
+  - platterSearchEventsId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIdIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - celebrationType
+  - created_time
+  - created_user
+  - maxGuests
+  - mealTimes
+  - minGuests
+  - planningDate
+  - platterSearchEventsId
+  - userId
+
+============================================================
+TABLE: PricingFactorsTable
+============================================================
+Status: ACTIVE
+Items: 1
+
+Key Schema:
+  - pricingFactorsId (Partition Key)
+
+Attributes:
+  - pricingFactorsId: String
+
+All Attributes Found in Sample Data:
+  - bufferValue
+  - created_time
+  - kCat
+  - maxIncCat
+  - nCat
+  - nCatMax
+  - nCatMin
+  - pricingFactorsId
+  - sortFactor
+  - x0Cat
+
+============================================================
+TABLE: QuotationTable
+============================================================
+Status: ACTIVE
+Items: 0
+
+Key Schema:
+  - quotationId (Partition Key)
+
+Attributes:
+  - quotationId: String
+  - quoteGroupId: String
+  - status: String
+
+Global Secondary Indexes:
+  - quoteGroupIdIndex: ['quoteGroupId']
+  - statusIndex: ['status']
+
+============================================================
+TABLE: ReferalContentTable
+============================================================
+Status: ACTIVE
+Items: 18
+
+Key Schema:
+  - contentId (Partition Key)
+
+Attributes:
+  - category: String
+  - category_order: Number
+  - contentId: String
+  - status: String
+
+Global Secondary Indexes:
+  - categoryOrderIndex: ['category', 'category_order']
+  - statusIndex: ['category', 'status']
+  - categoryIndex: ['category']
+
+All Attributes Found in Sample Data:
+  - category
+  - category_order
+  - contentId
+  - created_time
+  - description
+  - imageUrl
+  - location
+  - status
+  - title
+  - titleIcon
+
+============================================================
+TABLE: RequestInvoiceTable
+============================================================
+Status: ACTIVE
+Items: 25
+
+Key Schema:
+  - requestInvoiceId (Partition Key)
+
+Attributes:
+  - orderId: String
+  - plateId: String
+  - requestInvoiceId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - orderIdIndex: ['orderId']
+  - userIdIndex: ['userId']
+  - plateIdIndex: ['plateId']
+  - orderAndPlateIdIndex: ['orderId', 'plateId']
+
+All Attributes Found in Sample Data:
+  - created_time
+  - created_user
+  - invoiceNumber
+  - invoiceStatus
+  - orderId
+  - plateId
+  - requestInvoiceId
+  - userId
+
+============================================================
+TABLE: TierDetailsTable
+============================================================
+Status: ACTIVE
+Items: 3
+
+Key Schema:
+  - tierId (Partition Key)
+
+Attributes:
+  - tierId: String
+
+All Attributes Found in Sample Data:
+  - complimentaryDish
+  - created_time
+  - eligibilityReferee
+  - eligibilitySpend
+  - instantReferralBonus
+  - leadReferralPercentage
+  - loyaltyCashbackPercentage
+  - referralPlaceOrderPercentage
+  - signUpBonus
+  - tierId
+  - tierType
+  - tierUpgradeBonus
+  - usedCoinPercentage
+  - withdrawableCoinPercentage
+
+============================================================
+TABLE: TierReferralTable
+============================================================
+Status: ACTIVE
+Items: 10
+
+Key Schema:
+  - tierReferralId (Partition Key)
+
+Attributes:
+  - appliedCode: String
+  - sentTo: String
+  - tierReferralId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - sentToAppliedCodeIndex: ['sentTo', 'appliedCode']
+  - userIdIndex: ['userId']
+  - sentToIndex: ['sentTo']
+  - appliedCodeIndex: ['appliedCode']
+
+All Attributes Found in Sample Data:
+  - appliedCode
+  - created_time
+  - created_user
+  - referralName
+  - sendedAmount
+  - sentTo
+  - status
+  - tierReferralId
+  - updated_time
+  - userId
+
+============================================================
+TABLE: TrackingTable
+============================================================
+Status: ACTIVE
+Items: 337
+
+Key Schema:
+  - trackingId (Partition Key)
+
+Attributes:
+  - orderId: String
+  - plateId: String
+  - trackingId: String
+
+Global Secondary Indexes:
+  - plateOrderIndex: ['orderId', 'plateId']
+  - orderIndex: ['orderId']
+
+All Attributes Found in Sample Data:
+  - created_time
+  - created_user
+  - deliveryExecutiveId
+  - orderId
+  - plateId
+  - sampleRequested
+  - statusLog
+  - trackingId
+  - trackingStatus
+  - updated_time
+  - updated_user
+  - userId
+
+============================================================
+TABLE: UserAddressRequestTable
+============================================================
+Status: ACTIVE
+Items: 8
+
+Key Schema:
+  - requestedId (Partition Key)
+
+Attributes:
+  - requestedId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - addressLink
+  - city
+  - created_time
+  - created_user
+  - fullAddress
+  - latitude
+  - longitude
+  - pincode
+  - requestedId
+  - state
+  - userId
+
+============================================================
+TABLE: UserOrderSummaryTable
+============================================================
+Status: ACTIVE
+Items: 67
+
+Key Schema:
+  - userOrderSummaryId (Partition Key)
+
+Attributes:
+  - userId: String
+  - userOrderSummaryId: String
+
+Global Secondary Indexes:
+  - userIdIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - created_time
+  - orderCount
+  - orderPlatterCount
+  - spendOrderValue
+  - userId
+  - userOrderSummaryId
+
+============================================================
+TABLE: UserSpecificsTable
+============================================================
+Status: ACTIVE
+Items: 4
+
+Key Schema:
+  - userId (Partition Key)
+
+Attributes:
+  - userId: String
+
+All Attributes Found in Sample Data:
+  - liveCounterInterest
+  - updated_time
+  - updated_user
+  - userId
+
+============================================================
+TABLE: UserTable
+============================================================
+Status: ACTIVE
+Items: 94
+
+Key Schema:
+  - userId (Partition Key)
+
+Attributes:
+  - emailId: String
+  - phoneNumber: String
+  - referralCode: String
+  - userId: String
+
+Global Secondary Indexes:
+  - emailIndex: ['emailId']
+  - phoneNumberIndex: ['phoneNumber']
+  - referralCodeIndex: ['referralCode']
+
+All Attributes Found in Sample Data:
+  - created_time
+  - dob
+  - emailId
+  - gender
+  - phoneNumber
+  - prospectId
+  - referralCode
+  - tierId
+  - tierUpdatedTime
+  - updated_time
+  - updated_user
+  - userId
+  - userName
+
+============================================================
+TABLE: WalletTable
+============================================================
+Status: ACTIVE
+Items: 100
+
+Key Schema:
+  - walletId (Partition Key)
+
+Attributes:
+  - userId: String
+  - walletId: String
+
+Global Secondary Indexes:
+  - userIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - created_time
+  - remainingAmount
+  - totalAmount
+  - updated_time
+  - updated_user
+  - usedAmount
+  - userId
+  - walletId
+
+============================================================
+TABLE: WalletTransactionTable
+============================================================
+Status: ACTIVE
+Items: 196
+
+Key Schema:
+  - transactionId (Partition Key)
+
+Attributes:
+  - requestedId: String
+  - title: String
+  - transactionId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIdAndTitleIndex: ['userId', 'title']
+  - requestedIndex: ['requestedId']
+  - userIndex: ['userId']
+
+All Attributes Found in Sample Data:
+  - amount
+  - correspondence
+  - created_time
+  - reason
+  - status
+  - title
+  - transactionId
+  - userId
+  - walletId
+
+============================================================
+TABLE: WithdrawnTable
+============================================================
+Status: ACTIVE
+Items: 33
+
+Key Schema:
+  - requestedId (Partition Key)
+
+Attributes:
+  - bankId: String
+  - requestedId: String
+  - userId: String
+
+Global Secondary Indexes:
+  - userIndex: ['userId']
+  - bankIndex: ['bankId']
+
+All Attributes Found in Sample Data:
+  - bankId
+  - created_time
+  - isUPI
+  - requestedAmount
+  - requestedId
+  - status
+  - title
+  - userId

@@ -1,0 +1,2087 @@
+[
+  {
+    "name": "ActivityLogsTable",
+    "status": "ACTIVE",
+    "item_count": 0,
+    "size_bytes": 0,
+    "key_schema": [
+      {
+        "name": "activityId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "activityId",
+        "type": "String"
+      },
+      {
+        "name": "cartId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIdIndex",
+        "keys": [
+          "userId"
+        ]
+      },
+      {
+        "name": "cartIdIndex",
+        "keys": [
+          "cartId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "AddOnsTable",
+    "status": "ACTIVE",
+    "item_count": 4151,
+    "size_bytes": 2032928,
+    "key_schema": [
+      {
+        "name": "addonsId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "addonsId",
+        "type": "String"
+      },
+      {
+        "name": "categoryId",
+        "type": "String"
+      },
+      {
+        "name": "itemId",
+        "type": "String"
+      },
+      {
+        "name": "platterId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "addonitemindex",
+        "keys": [
+          "itemId"
+        ]
+      },
+      {
+        "name": "categoryindex",
+        "keys": [
+          "categoryId"
+        ]
+      },
+      {
+        "name": "addonplatterindex",
+        "keys": [
+          "platterId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "AddressOrderTable",
+    "status": "ACTIVE",
+    "item_count": 82,
+    "size_bytes": 34489,
+    "key_schema": [
+      {
+        "name": "addressId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "addressId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "AddressTable",
+    "status": "ACTIVE",
+    "item_count": 95,
+    "size_bytes": 34150,
+    "key_schema": [
+      {
+        "name": "addressId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "addressId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "AppFeedbackTable",
+    "status": "ACTIVE",
+    "item_count": 30,
+    "size_bytes": 5850,
+    "key_schema": [
+      {
+        "name": "feedbackId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "feedbackId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIdIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "BankDetailsTable",
+    "status": "ACTIVE",
+    "item_count": 8,
+    "size_bytes": 1705,
+    "key_schema": [
+      {
+        "name": "id",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "id",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "BbqSkewersTable",
+    "status": "ACTIVE",
+    "item_count": 20,
+    "size_bytes": 8543,
+    "key_schema": [
+      {
+        "name": "skewerId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "itemId",
+        "type": "String"
+      },
+      {
+        "name": "skewerId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "itemIdIndex",
+        "keys": [
+          "itemId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "CartCategoriesTable",
+    "status": "ACTIVE",
+    "item_count": 6615,
+    "size_bytes": 1670702,
+    "key_schema": [
+      {
+        "name": "cartId",
+        "type": "Partition Key"
+      },
+      {
+        "name": "categoryId",
+        "type": "Sort Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "cartId",
+        "type": "String"
+      },
+      {
+        "name": "categoryId",
+        "type": "String"
+      }
+    ],
+    "gsi": [],
+    "lsi": []
+  },
+  {
+    "name": "CartTable",
+    "status": "ACTIVE",
+    "item_count": 1897,
+    "size_bytes": 1209411,
+    "key_schema": [
+      {
+        "name": "userId",
+        "type": "Partition Key"
+      },
+      {
+        "name": "cartId",
+        "type": "Sort Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "cartId",
+        "type": "String"
+      },
+      {
+        "name": "cartStatus",
+        "type": "String"
+      },
+      {
+        "name": "phoneNumber",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "phoneNumberIndex",
+        "keys": [
+          "phoneNumber"
+        ]
+      },
+      {
+        "name": "cartIdIndex",
+        "keys": [
+          "cartId"
+        ]
+      },
+      {
+        "name": "cartStatusIndex",
+        "keys": [
+          "cartStatus"
+        ]
+      },
+      {
+        "name": "userIdCartStatusIndex",
+        "keys": [
+          "userId",
+          "cartStatus"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "CategoryTable",
+    "status": "ACTIVE",
+    "item_count": 95,
+    "size_bytes": 21250,
+    "key_schema": [
+      {
+        "name": "categoryId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "categoryActive",
+        "type": "String"
+      },
+      {
+        "name": "categoryId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "categoryActiveIndex",
+        "keys": [
+          "categoryActive"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "CateringRequestTable",
+    "status": "ACTIVE",
+    "item_count": 19,
+    "size_bytes": 5503,
+    "key_schema": [
+      {
+        "name": "cateringRequestId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "cateringRequestId",
+        "type": "String"
+      },
+      {
+        "name": "phoneNumber",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "phoneNumberIndex",
+        "keys": [
+          "phoneNumber"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "CommonFeedbackTable",
+    "status": "ACTIVE",
+    "item_count": 0,
+    "size_bytes": 0,
+    "key_schema": [
+      {
+        "name": "commonFeedbackId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "commonFeedbackId",
+        "type": "String"
+      },
+      {
+        "name": "commonFeedbackType",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "commonFeedbackTypeIndex",
+        "keys": [
+          "commonFeedbackType"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "ContentTable",
+    "status": "ACTIVE",
+    "item_count": 97,
+    "size_bytes": 41548,
+    "key_schema": [
+      {
+        "name": "id",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "category",
+        "type": "String"
+      },
+      {
+        "name": "category_order",
+        "type": "Number"
+      },
+      {
+        "name": "contentActive",
+        "type": "String"
+      },
+      {
+        "name": "id",
+        "type": "String"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "categoryOrderIndex",
+        "keys": [
+          "category",
+          "category_order"
+        ]
+      },
+      {
+        "name": "titleCategoryIndex",
+        "keys": [
+          "category",
+          "title"
+        ]
+      },
+      {
+        "name": "contentCategoryActiveIndex",
+        "keys": [
+          "category",
+          "contentActive"
+        ]
+      },
+      {
+        "name": "categoryIndex",
+        "keys": [
+          "category"
+        ]
+      },
+      {
+        "name": "contentActiveIndex",
+        "keys": [
+          "contentActive"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "CounterTable",
+    "status": "ACTIVE",
+    "item_count": 0,
+    "size_bytes": 0,
+    "key_schema": [
+      {
+        "name": "counterId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "counterId",
+        "type": "String"
+      },
+      {
+        "name": "counterType",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "counterTypeIndex",
+        "keys": [
+          "counterType"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "CouponsTable",
+    "status": "ACTIVE",
+    "item_count": 59,
+    "size_bytes": 27675,
+    "key_schema": [
+      {
+        "name": "id",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "code",
+        "type": "String"
+      },
+      {
+        "name": "id",
+        "type": "String"
+      },
+      {
+        "name": "location",
+        "type": "String"
+      },
+      {
+        "name": "status",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "locationIndex",
+        "keys": [
+          "location"
+        ]
+      },
+      {
+        "name": "couponActiveIndex",
+        "keys": [
+          "location",
+          "status"
+        ]
+      },
+      {
+        "name": "codeIndex",
+        "keys": [
+          "code"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "CuisineTable",
+    "status": "ACTIVE",
+    "item_count": 0,
+    "size_bytes": 0,
+    "key_schema": [
+      {
+        "name": "cuisineId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "cuisineActive",
+        "type": "String"
+      },
+      {
+        "name": "cuisineId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "cuisineIdActiveIndex",
+        "keys": [
+          "cuisineId",
+          "cuisineActive"
+        ]
+      },
+      {
+        "name": "cuisineActiveIndex",
+        "keys": [
+          "cuisineActive"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "CutleryTable",
+    "status": "ACTIVE",
+    "item_count": 164,
+    "size_bytes": 71223,
+    "key_schema": [
+      {
+        "name": "cutleryId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "cutleryId",
+        "type": "String"
+      },
+      {
+        "name": "platterId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "platterIndex",
+        "keys": [
+          "platterId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "DefaultPlatterItemsTable",
+    "status": "ACTIVE",
+    "item_count": 5432,
+    "size_bytes": 2303460,
+    "key_schema": [
+      {
+        "name": "itemId",
+        "type": "Partition Key"
+      },
+      {
+        "name": "platterId",
+        "type": "Sort Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "categoryId",
+        "type": "String"
+      },
+      {
+        "name": "itemActive",
+        "type": "String"
+      },
+      {
+        "name": "itemId",
+        "type": "String"
+      },
+      {
+        "name": "platterId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "itemActiveIndex",
+        "keys": [
+          "itemActive"
+        ]
+      },
+      {
+        "name": "platterCategoryIndex",
+        "keys": [
+          "platterId",
+          "categoryId"
+        ]
+      },
+      {
+        "name": "platterIndex",
+        "keys": [
+          "platterId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "DefaultPlattersCategoriesTable",
+    "status": "ACTIVE",
+    "item_count": 584,
+    "size_bytes": 200924,
+    "key_schema": [
+      {
+        "name": "categoryId",
+        "type": "Partition Key"
+      },
+      {
+        "name": "platterId",
+        "type": "Sort Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "categoryId",
+        "type": "String"
+      },
+      {
+        "name": "categoryPlatterActive",
+        "type": "String"
+      },
+      {
+        "name": "platterId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "platterCategoryActiveIndex",
+        "keys": [
+          "platterId",
+          "categoryPlatterActive"
+        ]
+      },
+      {
+        "name": "platterIndex",
+        "keys": [
+          "platterId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "DefaultPlattersTable",
+    "status": "ACTIVE",
+    "item_count": 130,
+    "size_bytes": 69984,
+    "key_schema": [
+      {
+        "name": "platterId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "basePrice",
+        "type": "Number"
+      },
+      {
+        "name": "mealTimes",
+        "type": "String"
+      },
+      {
+        "name": "platterActive",
+        "type": "String"
+      },
+      {
+        "name": "platterId",
+        "type": "String"
+      },
+      {
+        "name": "platterSubType",
+        "type": "String"
+      },
+      {
+        "name": "platterType",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "mealtimesIndex",
+        "keys": [
+          "mealTimes"
+        ]
+      },
+      {
+        "name": "platterTypeSubTypeIndex",
+        "keys": [
+          "platterType",
+          "platterSubType"
+        ]
+      },
+      {
+        "name": "platterSubTypeIndex",
+        "keys": [
+          "platterSubType"
+        ]
+      },
+      {
+        "name": "platterTypeBasePriceIndex",
+        "keys": [
+          "platterType",
+          "basePrice"
+        ]
+      },
+      {
+        "name": "platterSubTypeActiveIndex",
+        "keys": [
+          "platterSubType",
+          "platterActive"
+        ]
+      },
+      {
+        "name": "platterActiveIndex",
+        "keys": [
+          "platterActive"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "EventExecutivesTable",
+    "status": "ACTIVE",
+    "item_count": 1,
+    "size_bytes": 337,
+    "key_schema": [
+      {
+        "name": "executiveId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "executiveActive",
+        "type": "String"
+      },
+      {
+        "name": "executiveId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "executiveActiveIndex",
+        "keys": [
+          "executiveActive"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "FindMyPlatterTable",
+    "status": "ACTIVE",
+    "item_count": 225,
+    "size_bytes": 93607,
+    "key_schema": [
+      {
+        "name": "findMyPlatterId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "findMyPlatterId",
+        "type": "String"
+      },
+      {
+        "name": "mealTimes",
+        "type": "String"
+      },
+      {
+        "name": "minPrice",
+        "type": "Number"
+      },
+      {
+        "name": "platterActive",
+        "type": "String"
+      },
+      {
+        "name": "platterId",
+        "type": "String"
+      },
+      {
+        "name": "platterSubType",
+        "type": "String"
+      },
+      {
+        "name": "platterType",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "mealtimesIndex",
+        "keys": [
+          "mealTimes"
+        ]
+      },
+      {
+        "name": "platterTypeSubTypeIndex",
+        "keys": [
+          "platterType",
+          "platterSubType"
+        ]
+      },
+      {
+        "name": "platterSubTypeIndex",
+        "keys": [
+          "platterSubType"
+        ]
+      },
+      {
+        "name": "platterIdIndex",
+        "keys": [
+          "platterId"
+        ]
+      },
+      {
+        "name": "platterSubTypeActiveIndex",
+        "keys": [
+          "platterSubType",
+          "platterActive"
+        ]
+      },
+      {
+        "name": "platterTypeMinPriceIndex",
+        "keys": [
+          "platterType",
+          "minPrice"
+        ]
+      },
+      {
+        "name": "platterActiveIndex",
+        "keys": [
+          "platterActive"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "GuestFeedbackTable",
+    "status": "ACTIVE",
+    "item_count": 0,
+    "size_bytes": 0,
+    "key_schema": [
+      {
+        "name": "guestFeedbackId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "guestFeedbackId",
+        "type": "String"
+      },
+      {
+        "name": "plateId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "plateIdIndex",
+        "keys": [
+          "plateId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "InternalUserTable",
+    "status": "ACTIVE",
+    "item_count": 0,
+    "size_bytes": 0,
+    "key_schema": [
+      {
+        "name": "userId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "emailId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "emailIndex",
+        "keys": [
+          "emailId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "ItemAccompanimentsTable",
+    "status": "ACTIVE",
+    "item_count": 254,
+    "size_bytes": 109572,
+    "key_schema": [
+      {
+        "name": "accompanimentId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "accompanimentId",
+        "type": "String"
+      },
+      {
+        "name": "active",
+        "type": "String"
+      },
+      {
+        "name": "itemId",
+        "type": "String"
+      },
+      {
+        "name": "platterSubType",
+        "type": "String"
+      },
+      {
+        "name": "platterType",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "activeIndex",
+        "keys": [
+          "active"
+        ]
+      },
+      {
+        "name": "itemIdActiveIndex",
+        "keys": [
+          "itemId",
+          "active"
+        ]
+      },
+      {
+        "name": "platterTypePlatterSubTypeIndex",
+        "keys": [
+          "platterType",
+          "platterSubType"
+        ]
+      },
+      {
+        "name": "itemIdPlatterTypeIndex",
+        "keys": [
+          "itemId",
+          "platterType"
+        ]
+      },
+      {
+        "name": "itemIdIndex",
+        "keys": [
+          "itemId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "LeadTable",
+    "status": "ACTIVE",
+    "item_count": 39,
+    "size_bytes": 12270,
+    "key_schema": [
+      {
+        "name": "leadId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "leadId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "LsqCrmTable",
+    "status": "ACTIVE",
+    "item_count": 0,
+    "size_bytes": 0,
+    "key_schema": [
+      {
+        "name": "leadCrmId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "activityEvent",
+        "type": "Number"
+      },
+      {
+        "name": "leadCrmId",
+        "type": "String"
+      },
+      {
+        "name": "phoneNumber",
+        "type": "String"
+      },
+      {
+        "name": "updatedLsq",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIdIndex",
+        "keys": [
+          "userId"
+        ]
+      },
+      {
+        "name": "activityEventIndex",
+        "keys": [
+          "activityEvent"
+        ]
+      },
+      {
+        "name": "updateLsqIndex",
+        "keys": [
+          "updatedLsq"
+        ]
+      },
+      {
+        "name": "phoneNumberIndex",
+        "keys": [
+          "phoneNumber"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "MenuItemsTable",
+    "status": "ACTIVE",
+    "item_count": 1272,
+    "size_bytes": 803979,
+    "key_schema": [
+      {
+        "name": "itemId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "itemActive",
+        "type": "String"
+      },
+      {
+        "name": "itemCategoryId",
+        "type": "String"
+      },
+      {
+        "name": "itemId",
+        "type": "String"
+      },
+      {
+        "name": "itemType",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "itemIdActiveIndex",
+        "keys": [
+          "itemId",
+          "itemActive"
+        ]
+      },
+      {
+        "name": "itemCategoryActiveIndex",
+        "keys": [
+          "itemCategoryId",
+          "itemActive"
+        ]
+      },
+      {
+        "name": "itemCategoryIndex",
+        "keys": [
+          "itemCategoryId"
+        ]
+      },
+      {
+        "name": "itemTypeIndex",
+        "keys": [
+          "itemType"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "OccasionEventTable",
+    "status": "ACTIVE",
+    "item_count": 17,
+    "size_bytes": 4187,
+    "key_schema": [
+      {
+        "name": "occasionId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "category",
+        "type": "String"
+      },
+      {
+        "name": "occasionId",
+        "type": "String"
+      },
+      {
+        "name": "occasionStatus",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "occasionStatusIndex",
+        "keys": [
+          "category",
+          "occasionStatus"
+        ]
+      },
+      {
+        "name": "categoryIndex",
+        "keys": [
+          "category"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "OrderReviewFeedbackTable",
+    "status": "ACTIVE",
+    "item_count": 117,
+    "size_bytes": 42536,
+    "key_schema": [
+      {
+        "name": "orderReviewFeedbackId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "orderId",
+        "type": "String"
+      },
+      {
+        "name": "orderReviewFeedbackId",
+        "type": "String"
+      },
+      {
+        "name": "phoneNumber",
+        "type": "String"
+      },
+      {
+        "name": "plateId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "orderPlateIdIndex",
+        "keys": [
+          "orderId",
+          "plateId"
+        ]
+      },
+      {
+        "name": "phoneNumberIndex",
+        "keys": [
+          "phoneNumber"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "OrderReviewsTable",
+    "status": "ACTIVE",
+    "item_count": 3,
+    "size_bytes": 362,
+    "key_schema": [
+      {
+        "name": "orderId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "orderId",
+        "type": "String"
+      },
+      {
+        "name": "plateId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "orderPlateIdIndex",
+        "keys": [
+          "orderId",
+          "plateId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "OrderTable",
+    "status": "ACTIVE",
+    "item_count": 772,
+    "size_bytes": 485728,
+    "key_schema": [
+      {
+        "name": "orderId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "orderId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "PaymentTable",
+    "status": "ACTIVE",
+    "item_count": 1002,
+    "size_bytes": 433167,
+    "key_schema": [
+      {
+        "name": "paymentId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "orderId",
+        "type": "String"
+      },
+      {
+        "name": "paymentId",
+        "type": "String"
+      },
+      {
+        "name": "paymentStatus",
+        "type": "String"
+      },
+      {
+        "name": "plateId",
+        "type": "String"
+      },
+      {
+        "name": "razorpayOrderId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIdIndex",
+        "keys": [
+          "userId"
+        ]
+      },
+      {
+        "name": "plateIdIndex",
+        "keys": [
+          "plateId"
+        ]
+      },
+      {
+        "name": "paymentStatusIndex",
+        "keys": [
+          "paymentStatus"
+        ]
+      },
+      {
+        "name": "razorpayOrderIndex",
+        "keys": [
+          "razorpayOrderId"
+        ]
+      },
+      {
+        "name": "razorpayOrderAndPlateIdIndex",
+        "keys": [
+          "razorpayOrderId",
+          "plateId"
+        ]
+      },
+      {
+        "name": "orderIndex",
+        "keys": [
+          "orderId"
+        ]
+      },
+      {
+        "name": "orderIdPlateIdIndex",
+        "keys": [
+          "orderId",
+          "plateId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "PlateOrdersTable",
+    "status": "ACTIVE",
+    "item_count": 958,
+    "size_bytes": 2791866,
+    "key_schema": [
+      {
+        "name": "plateId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "orderId",
+        "type": "String"
+      },
+      {
+        "name": "plateId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "orderIndex",
+        "keys": [
+          "orderId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "PlatterSearchEventsTable",
+    "status": "ACTIVE",
+    "item_count": 442,
+    "size_bytes": 116349,
+    "key_schema": [
+      {
+        "name": "platterSearchEventsId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "platterSearchEventsId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIdIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "PricingFactorsTable",
+    "status": "ACTIVE",
+    "item_count": 1,
+    "size_bytes": 142,
+    "key_schema": [
+      {
+        "name": "pricingFactorsId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "pricingFactorsId",
+        "type": "String"
+      }
+    ],
+    "gsi": [],
+    "lsi": []
+  },
+  {
+    "name": "QuotationTable",
+    "status": "ACTIVE",
+    "item_count": 0,
+    "size_bytes": 0,
+    "key_schema": [
+      {
+        "name": "quotationId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "quotationId",
+        "type": "String"
+      },
+      {
+        "name": "quoteGroupId",
+        "type": "String"
+      },
+      {
+        "name": "status",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "quoteGroupIdIndex",
+        "keys": [
+          "quoteGroupId"
+        ]
+      },
+      {
+        "name": "statusIndex",
+        "keys": [
+          "status"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "ReferalContentTable",
+    "status": "ACTIVE",
+    "item_count": 18,
+    "size_bytes": 6184,
+    "key_schema": [
+      {
+        "name": "contentId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "category",
+        "type": "String"
+      },
+      {
+        "name": "category_order",
+        "type": "Number"
+      },
+      {
+        "name": "contentId",
+        "type": "String"
+      },
+      {
+        "name": "status",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "categoryOrderIndex",
+        "keys": [
+          "category",
+          "category_order"
+        ]
+      },
+      {
+        "name": "statusIndex",
+        "keys": [
+          "category",
+          "status"
+        ]
+      },
+      {
+        "name": "categoryIndex",
+        "keys": [
+          "category"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "RequestInvoiceTable",
+    "status": "ACTIVE",
+    "item_count": 25,
+    "size_bytes": 6550,
+    "key_schema": [
+      {
+        "name": "requestInvoiceId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "orderId",
+        "type": "String"
+      },
+      {
+        "name": "plateId",
+        "type": "String"
+      },
+      {
+        "name": "requestInvoiceId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "orderIdIndex",
+        "keys": [
+          "orderId"
+        ]
+      },
+      {
+        "name": "userIdIndex",
+        "keys": [
+          "userId"
+        ]
+      },
+      {
+        "name": "plateIdIndex",
+        "keys": [
+          "plateId"
+        ]
+      },
+      {
+        "name": "orderAndPlateIdIndex",
+        "keys": [
+          "orderId",
+          "plateId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "TierDetailsTable",
+    "status": "ACTIVE",
+    "item_count": 3,
+    "size_bytes": 1031,
+    "key_schema": [
+      {
+        "name": "tierId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "tierId",
+        "type": "String"
+      }
+    ],
+    "gsi": [],
+    "lsi": []
+  },
+  {
+    "name": "TierReferralTable",
+    "status": "ACTIVE",
+    "item_count": 10,
+    "size_bytes": 2435,
+    "key_schema": [
+      {
+        "name": "tierReferralId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "appliedCode",
+        "type": "String"
+      },
+      {
+        "name": "sentTo",
+        "type": "String"
+      },
+      {
+        "name": "tierReferralId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "sentToAppliedCodeIndex",
+        "keys": [
+          "sentTo",
+          "appliedCode"
+        ]
+      },
+      {
+        "name": "userIdIndex",
+        "keys": [
+          "userId"
+        ]
+      },
+      {
+        "name": "sentToIndex",
+        "keys": [
+          "sentTo"
+        ]
+      },
+      {
+        "name": "appliedCodeIndex",
+        "keys": [
+          "appliedCode"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "TrackingTable",
+    "status": "ACTIVE",
+    "item_count": 337,
+    "size_bytes": 124174,
+    "key_schema": [
+      {
+        "name": "trackingId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "orderId",
+        "type": "String"
+      },
+      {
+        "name": "plateId",
+        "type": "String"
+      },
+      {
+        "name": "trackingId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "plateOrderIndex",
+        "keys": [
+          "orderId",
+          "plateId"
+        ]
+      },
+      {
+        "name": "orderIndex",
+        "keys": [
+          "orderId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "UserAddressRequestTable",
+    "status": "ACTIVE",
+    "item_count": 8,
+    "size_bytes": 2701,
+    "key_schema": [
+      {
+        "name": "requestedId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "requestedId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "UserOrderSummaryTable",
+    "status": "ACTIVE",
+    "item_count": 67,
+    "size_bytes": 14159,
+    "key_schema": [
+      {
+        "name": "userOrderSummaryId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "userId",
+        "type": "String"
+      },
+      {
+        "name": "userOrderSummaryId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIdIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "UserSpecificsTable",
+    "status": "ACTIVE",
+    "item_count": 4,
+    "size_bytes": 512,
+    "key_schema": [
+      {
+        "name": "userId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [],
+    "lsi": []
+  },
+  {
+    "name": "UserTable",
+    "status": "ACTIVE",
+    "item_count": 94,
+    "size_bytes": 29199,
+    "key_schema": [
+      {
+        "name": "userId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "emailId",
+        "type": "String"
+      },
+      {
+        "name": "phoneNumber",
+        "type": "String"
+      },
+      {
+        "name": "referralCode",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "emailIndex",
+        "keys": [
+          "emailId"
+        ]
+      },
+      {
+        "name": "phoneNumberIndex",
+        "keys": [
+          "phoneNumber"
+        ]
+      },
+      {
+        "name": "referralCodeIndex",
+        "keys": [
+          "referralCode"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "WalletTable",
+    "status": "ACTIVE",
+    "item_count": 100,
+    "size_bytes": 19063,
+    "key_schema": [
+      {
+        "name": "walletId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "userId",
+        "type": "String"
+      },
+      {
+        "name": "walletId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "WalletTransactionTable",
+    "status": "ACTIVE",
+    "item_count": 196,
+    "size_bytes": 53061,
+    "key_schema": [
+      {
+        "name": "transactionId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "requestedId",
+        "type": "String"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "transactionId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIdAndTitleIndex",
+        "keys": [
+          "userId",
+          "title"
+        ]
+      },
+      {
+        "name": "requestedIndex",
+        "keys": [
+          "requestedId"
+        ]
+      },
+      {
+        "name": "userIndex",
+        "keys": [
+          "userId"
+        ]
+      }
+    ],
+    "lsi": []
+  },
+  {
+    "name": "WithdrawnTable",
+    "status": "ACTIVE",
+    "item_count": 33,
+    "size_bytes": 6856,
+    "key_schema": [
+      {
+        "name": "requestedId",
+        "type": "Partition Key"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "bankId",
+        "type": "String"
+      },
+      {
+        "name": "requestedId",
+        "type": "String"
+      },
+      {
+        "name": "userId",
+        "type": "String"
+      }
+    ],
+    "gsi": [
+      {
+        "name": "userIndex",
+        "keys": [
+          "userId"
+        ]
+      },
+      {
+        "name": "bankIndex",
+        "keys": [
+          "bankId"
+        ]
+      }
+    ],
+    "lsi": []
+  }
+]
