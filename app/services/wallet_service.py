@@ -176,26 +176,51 @@ def get_top_coin_holders(limit: int = 5) -> List[Dict]:
 
 def get_top_earners(limit: int = 5) -> List[Dict]:
     """
-    G04: Get users who earned the most coins (total credits).
+    G04: Get users who earned the most coins (total credits from earning transactions).
+    Filters by specific earning titles: Signup Bonus, Referral, etc.
+    Excludes: Users who have 'Added to Wallet' transactions, Refunds, Withdrawals, Redemptions.
     Returns list of {userId, userName, totalEarned} sorted DESC.
     """
-    # Try aggregates first
-    cached = aggregates_service.get_top_earners_from_aggregates(limit)
-    if cached:
-        return cached
+    # NOTE: Aggregates cache disabled - we need custom logic to exclude 'Added to Wallet' users
+    # cached = aggregates_service.get_top_earners_from_aggregates(limit)
+    # if cached:
+    #     return cached
     
     # Fallback to full scan
     from .user_service import get_user_by_id
     from collections import defaultdict
     
+    # Define earning titles (case-insensitive matching)
+    # Note: 'Added to Wallet' is tracked separately in get_top_added_to_wallet()
+    EARNING_TITLES = {
+        'signup bonus',
+        'referral',
+        'referral reward',
+        'referral order completed',
+        'referral order is completed',
+        'loyalty cashback'
+    }
+    
     transactions = get_all_transactions(limit=None)  # Full pagination for accurate leaderboard
     
-    # Sum credits per user
+    # First pass: identify users who have 'Added to Wallet' transactions
+    users_with_added_to_wallet = set()
+    for txn in transactions:
+        title = str(txn.get('title', '')).lower().strip()
+        if title == 'added to wallet':
+            users_with_added_to_wallet.add(txn.get('userId', ''))
+    
+    # Second pass: sum credits per user for earning transactions only, excluding users with 'Added to Wallet'
     user_credits = defaultdict(float)
     for txn in transactions:
-        title = str(txn.get('title', '')).lower()
-        if 'credit' in title or txn.get('amount', 0) > 0:
-            user_id = txn.get('userId', '')
+        title = str(txn.get('title', '')).lower().strip()
+        user_id = txn.get('userId', '')
+        
+        # Skip users who have 'Added to Wallet' transactions
+        if user_id in users_with_added_to_wallet:
+            continue
+            
+        if title in EARNING_TITLES:
             amount = abs(float(txn.get('amount', 0)))
             user_credits[user_id] += amount
     
@@ -211,6 +236,43 @@ def get_top_earners(limit: int = 5) -> List[Dict]:
             'userId': user_id,
             'userName': user_name,
             'totalEarned': total_earned
+        })
+    
+    return result
+
+
+def get_top_added_to_wallet(limit: int = 5) -> List[Dict]:
+    """
+    Get users with highest 'Added to Wallet' credits (verified referral bonuses).
+    This tracks users who received the most referral bonus credits.
+    Returns list of {userId, userName, totalAdded} sorted DESC.
+    """
+    from .user_service import get_user_by_id
+    from collections import defaultdict
+    
+    transactions = get_all_transactions(limit=None)  # Full pagination
+    
+    # Sum 'Added to Wallet' credits per user
+    user_added = defaultdict(float)
+    for txn in transactions:
+        title = str(txn.get('title', '')).lower().strip()
+        if title == 'added to wallet':
+            user_id = txn.get('userId', '')
+            amount = abs(float(txn.get('amount', 0)))
+            user_added[user_id] += amount
+    
+    # Sort and get top users
+    sorted_users = sorted(user_added.items(), key=lambda x: x[1], reverse=True)[:limit]
+    
+    result = []
+    for user_id, total_added in sorted_users:
+        user = get_user_by_id(user_id)
+        user_name = user.get('userName', 'Unknown') if user else 'Unknown'
+        
+        result.append({
+            'userId': user_id,
+            'userName': user_name,
+            'totalAdded': total_added
         })
     
     return result

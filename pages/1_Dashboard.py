@@ -27,7 +27,7 @@ from app.services import (
     get_tier_name,
     get_user_by_id
 )
-from app.services.wallet_service import get_top_coin_holders, get_top_earners, get_daily_coin_activity, get_daily_coin_activity_by_range
+from app.services.wallet_service import get_top_coin_holders, get_top_earners, get_top_added_to_wallet, get_daily_coin_activity, get_daily_coin_activity_by_range
 from app.services.referral_service import get_top_referrers
 from app.services.lead_service import get_top_lead_generators
 from app.services.withdrawal_service import get_top_withdrawers
@@ -503,10 +503,59 @@ def show_all_withdrawers():
     else:
         st.info("No data available")
 
+@st.dialog("💵 All Top Coin Holders (Added to Wallet)", width="large")
+def show_all_coin_holders_added():
+    """Show all users sorted by 'Added to Wallet' credits."""
+    data = get_top_added_to_wallet(50)
+    if data:
+        st.info(f"Showing top {len(data)} users by 'Added to Wallet' credits (referral bonuses)")
+        st.caption("Click 'View' to see user profile")
+        
+        for i, user in enumerate(data, 1):
+            user_id = user['userId']
+            col1, col2, col3, col4 = st.columns([0.5, 2, 1.5, 1])
+            with col1:
+                st.write(f"**{i}**")
+            with col2:
+                st.write(f"**{user['userName']}**")
+            with col3:
+                st.write(f"💵 {user['totalAdded']:,.0f}")
+            with col4:
+                if st.button("👤 View", key=f"lb_added_{user_id[:8]}", use_container_width=True):
+                    st.session_state['navigate_to_user'] = user_id
+                    st.rerun()
+    else:
+        st.info("No data available")
+
+@st.dialog("🎁 All Top Earners (Added to Wallet)", width="large")
+def show_all_earners_added():
+    """Show all users sorted by 'Added to Wallet' earnings."""
+    data = get_top_added_to_wallet(50)
+    if data:
+        st.info(f"Showing top {len(data)} users by 'Added to Wallet' earnings")
+        st.caption("Click 'View' to see user profile")
+        
+        for i, user in enumerate(data, 1):
+            user_id = user['userId']
+            col1, col2, col3, col4 = st.columns([0.5, 2, 1.5, 1])
+            with col1:
+                st.write(f"**{i}**")
+            with col2:
+                st.write(f"**{user['userName']}**")
+            with col3:
+                st.write(f"🎁 {user['totalAdded']:,.0f}")
+            with col4:
+                if st.button("👤 View", key=f"lb_earnadd_{user_id[:8]}", use_container_width=True):
+                    st.session_state['navigate_to_user'] = user_id
+                    st.rerun()
+    else:
+        st.info("No data available")
+
 try:
-    lb_col1, lb_col2, lb_col3, lb_col4 = st.columns(4)
+    # ======== ROW 1: Top Coin Holders | Top Coin Holders (Added to Wallet) | Top Earners ========
+    lb_row1_col1, lb_row1_col2, lb_row1_col3 = st.columns(3)
     
-    with lb_col1:
+    with lb_row1_col1:
         st.markdown("**💰 Top Coin Holders**")
         top_coins = get_top_coin_holders(5)
         if top_coins:
@@ -520,7 +569,52 @@ try:
         else:
             st.caption("No data")
     
-    with lb_col2:
+    with lb_row1_col2:
+        st.markdown("**💵 Top Coin Holders (Added to Wallet)**")
+        top_added = get_top_added_to_wallet(5)
+        if top_added:
+            df = pd.DataFrame([
+                {'#': i+1, 'Name': u['userName'], 'Added': f"{u['totalAdded']:,.0f}"}
+                for i, u in enumerate(top_added)
+            ])
+            st.dataframe(df, use_container_width=True, hide_index=True, height=210)
+            if st.button("📊 View All", key="lb_added_detail", use_container_width=True):
+                show_all_coin_holders_added()
+        else:
+            st.caption("No data")
+    
+    with lb_row1_col3:
+        st.markdown("**⭐ Top Earners**")
+        top_earners = get_top_earners(5)
+        if top_earners:
+            df = pd.DataFrame([
+                {'#': i+1, 'Name': u['userName'], 'Earned': f"{u['totalEarned']:,.0f}"}
+                for i, u in enumerate(top_earners)
+            ])
+            st.dataframe(df, use_container_width=True, hide_index=True, height=210)
+            if st.button("📊 View All", key="lb_earners_detail", use_container_width=True):
+                show_all_earners()
+        else:
+            st.caption("No data")
+    
+    # ======== ROW 2: Top Earners (Added to Wallet) | Top Referrers | Top Lead Generators ========
+    lb_row2_col1, lb_row2_col2, lb_row2_col3 = st.columns(3)
+    
+    with lb_row2_col1:
+        st.markdown("**🎁 Top Earners (Added to Wallet)**")
+        top_earners_added = get_top_added_to_wallet(5)
+        if top_earners_added:
+            df = pd.DataFrame([
+                {'#': i+1, 'Name': u['userName'], 'Earned': f"{u['totalAdded']:,.0f}"}
+                for i, u in enumerate(top_earners_added)
+            ])
+            st.dataframe(df, use_container_width=True, hide_index=True, height=210)
+            if st.button("📊 View All", key="lb_earners_added_detail", use_container_width=True):
+                show_all_earners_added()
+        else:
+            st.caption("No data")
+    
+    with lb_row2_col2:
         st.markdown("**🔗 Top Referrers**")
         top_refs = get_top_referrers(5)
         if top_refs:
@@ -534,7 +628,7 @@ try:
         else:
             st.caption("No data")
     
-    with lb_col3:
+    with lb_row2_col3:
         st.markdown("**📈 Top Lead Generators**")
         top_leads_lb = get_top_lead_generators(5)
         if top_leads_lb:
@@ -548,42 +642,22 @@ try:
         else:
             st.caption("No data")
     
-    with lb_col4:
-        st.markdown("**⭐ Top Earners**")
-        top_earners = get_top_earners(5)
-        if top_earners:
-            df = pd.DataFrame([
-                {'#': i+1, 'Name': u['userName'], 'Earned': f"{u['totalEarned']:,.0f}"}
-                for i, u in enumerate(top_earners)
-            ])
-            st.dataframe(df, use_container_width=True, hide_index=True, height=210)
-            if st.button("📊 View All", key="lb_earners_detail", use_container_width=True):
-                show_all_earners()
-        else:
-            st.caption("No data")
-
-except Exception as e:
-    st.warning(f"Could not load leaderboards: {e}")
-
-# 5th Leaderboard - Top Withdrawers
-try:
+    # ======== ROW 3: Top Withdrawers ========
     st.markdown("**🏧 Top Withdrawers**")
     top_withdrawers = get_top_withdrawers(5)
     if top_withdrawers:
-        lb_w_col1, lb_w_col2, lb_w_col3, lb_w_col4, lb_w_col5 = st.columns(5)
-        
-        for i, user in enumerate(top_withdrawers):
-            with [lb_w_col1, lb_w_col2, lb_w_col3, lb_w_col4, lb_w_col5][i]:
-                st.markdown(f"**{i+1}. {user['userName']}**")
-                st.caption(f"🏧 {user['withdrawalCount']} requests")
-                st.caption(f"₹{user['totalAmount']:,.0f}")
-        
-        if st.button("📊 View All Withdrawers", key="lb_withdraw_detail"):
+        df = pd.DataFrame([
+            {'#': i+1, 'Name': u['userName'], 'Requests': u['withdrawalCount'], 'Amount': f"₹{u['totalAmount']:,.0f}"}
+            for i, u in enumerate(top_withdrawers)
+        ])
+        st.dataframe(df, use_container_width=True, hide_index=True, height=210)
+        if st.button("📊 View All Withdrawers", key="lb_withdraw_detail", use_container_width=True):
             show_all_withdrawers()
     else:
         st.caption("No withdrawal data")
+
 except Exception as e:
-    st.warning(f"Could not load withdrawers: {e}")
+    st.warning(f"Could not load leaderboards: {e}")
 
 st.markdown("---")
 

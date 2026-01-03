@@ -123,8 +123,7 @@ with col1:
 with col2:
     search_clicked = st.button("🔍 Search", use_container_width=True)
 
-# Show all users button
-show_all = st.checkbox("Show all users (limited to 50)")
+st.caption("💡 Search by **phone number**, **email**, or **user ID** for instant results")
 
 st.markdown("---")
 
@@ -387,10 +386,7 @@ try:
             st.session_state.search_results = users
             st.session_state.search_query = search_query
         
-        # Show all users if checkbox is selected
-        if show_all:
-            users = get_all_users(limit=50)
-            st.session_state.search_results = users
+        # Show all users feature removed - not practical for 184K users
         
         # Display search results (from session state)
         if st.session_state.search_results:

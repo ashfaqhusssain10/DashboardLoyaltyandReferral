@@ -39,16 +39,36 @@ def get_all_users(limit: int = 100) -> List[Dict]:
 
 
 def search_users(query: str) -> List[Dict]:
-    """Search users by ID or phone number."""
-    # Try phone first
+    """Search users by ID, phone number, or name."""
+    query = query.strip()
+    
+    if not query:
+        return []
+    
+    # Try phone first (exact match)
     results = search_by_phone(query)
     if results:
         return results
     
-    # Try as user ID
+    # Try with +91 prefix if not present
+    if not query.startswith('+') and query.isdigit():
+        results = search_by_phone(f"+91{query}")
+        if results:
+            return results
+    
+    # Try without +91 prefix if present
+    if query.startswith('+91'):
+        results = search_by_phone(query[3:])
+        if results:
+            return results
+    
+    # Try as user ID (exact match)
     user = get_user_by_id(query)
     if user:
         return [user]
     
-    # Return empty if nothing found
+    # Name search removed - scanning 184K users is not practical
+    # Use phone number, email, or user ID for search instead
+    
     return []
+
