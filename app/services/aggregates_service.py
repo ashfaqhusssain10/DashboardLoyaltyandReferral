@@ -148,15 +148,23 @@ def get_pending_count_from_aggregates() -> Optional[int]:
 
 
 def get_today_referrals_from_aggregates() -> Optional[int]:
-    """Get today's referrals count from aggregates. Returns None if unavailable."""
-    stats = get_global_stats()
-    return stats.get('todayReferralsCount') if stats else None
+    """Get today's referrals count from DAILY aggregates (not stale GLOBAL)."""
+    today = date.today().isoformat()
+    agg = _get_aggregate("DAILY", today)
+    if agg and "data" in agg:
+        data = convert_decimals(agg["data"])
+        return data.get('referrals', 0)
+    return 0  # Return 0 if no data for today yet
 
 
 def get_today_leads_from_aggregates() -> Optional[int]:
-    """Get today's leads count from aggregates. Returns None if unavailable."""
-    stats = get_global_stats()
-    return stats.get('todayLeadsCount') if stats else None
+    """Get today's leads count from DAILY aggregates (not stale GLOBAL)."""
+    today = date.today().isoformat()
+    agg = _get_aggregate("DAILY", today)
+    if agg and "data" in agg:
+        data = convert_decimals(agg["data"])
+        return data.get('leads', 0)
+    return 0  # Return 0 if no data for today yet
 
 
 # ============ TIER STATISTICS ============

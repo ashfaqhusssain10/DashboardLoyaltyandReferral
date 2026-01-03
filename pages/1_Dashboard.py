@@ -78,15 +78,25 @@ st.markdown("""
 
 @st.dialog("👥 Users with Balance", width="large")
 def show_users_with_balance():
-    """Show all users with coin balance > 0."""
+    """Show top users with coin balance > 0."""
+    from app.services.aggregates_service import get_active_users_from_aggregates
+    
+    # Get total from aggregates
+    total_users = get_active_users_from_aggregates() or 0
+    
+    # Get sample to display
     wallets = get_all_wallets(limit=1000)
-    wallets_with_balance = [w for w in wallets if float(w.get('remainingAmount', 0)) > 0]
+    wallets_with_balance = sorted(
+        [w for w in wallets if float(w.get('remainingAmount', 0)) > 0],
+        key=lambda x: float(x.get('remainingAmount', 0)),
+        reverse=True
+    )[:50]
     
     if wallets_with_balance:
-        st.info(f"Total: {len(wallets_with_balance)} users with balance")
+        st.info(f"Showing {len(wallets_with_balance)} of {total_users:,} users with balance")
         st.caption("Click 'View Profile' to see user details")
         
-        for w in wallets_with_balance[:50]:  # Limit to 50
+        for w in wallets_with_balance:
             user_id = w.get('userId', 'N/A')
             user = get_user_by_id(user_id)
             user_name = user.get('userName', 'Unknown') if user else 'Unknown'
@@ -113,20 +123,26 @@ def show_users_with_balance():
 
 @st.dialog("💰 Total Coins in System", width="large")
 def show_total_coins():
-    """Show all wallets with coins."""
+    """Show top wallets with coins."""
+    from app.services.aggregates_service import get_total_coins_from_aggregates
+    
+    # Get total from aggregates
+    total_coins = get_total_coins_from_aggregates() or 0
+    
+    # Get sample to display
     wallets = get_all_wallets(limit=1000)
     wallets_with_coins = sorted(
         [w for w in wallets if float(w.get('remainingAmount', 0)) > 0],
         key=lambda x: float(x.get('remainingAmount', 0)),
         reverse=True
-    )
+    )[:50]
     
     if wallets_with_coins:
-        total = sum(float(w.get('remainingAmount', 0)) for w in wallets_with_coins)
-        st.success(f"**Total Coins in System: {total:,.0f}**")
+        st.success(f"**Total Coins in System: {total_coins:,.0f}**")
+        st.info(f"Showing top {len(wallets_with_coins)} coin holders")
         st.caption("Click 'View Profile' to see user details")
         
-        for w in wallets_with_coins[:50]:
+        for w in wallets_with_coins:
             user_id = w.get('userId', 'N/A')
             user = get_user_by_id(user_id)
             user_name = user.get('userName', 'Unknown') if user else 'Unknown'
@@ -271,9 +287,16 @@ try:
     
     with col2:
         total_coins = get_total_coins_in_system()
+        # Format large numbers with M/K suffix
+        if total_coins >= 1_000_000:
+            coins_display = f"{total_coins/1_000_000:.1f}M"
+        elif total_coins >= 1_000:
+            coins_display = f"{total_coins/1_000:.0f}K"
+        else:
+            coins_display = f"{total_coins:,.0f}"
         st.markdown(f"""
         <div class="kpi-container kpi-container-green">
-            <div class="kpi-value">{total_coins:,.0f}</div>
+            <div class="kpi-value">{coins_display}</div>
             <div class="kpi-label">Total Coins in System</div>
         </div>
         """, unsafe_allow_html=True)
