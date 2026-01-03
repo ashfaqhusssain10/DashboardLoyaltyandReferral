@@ -83,6 +83,35 @@ def _put_aggregate(aggregate_type: str, aggregate_id: str, data: Dict) -> bool:
 
 # ============ GLOBAL KPIs ============
 
+# Cache aggregates for 60 seconds to reduce DynamoDB calls
+from functools import lru_cache
+import time
+
+_cache = {}
+_cache_ttl = 60  # seconds
+
+def _get_cached_global_stats():
+    """Get global stats with caching."""
+    cache_key = "global_stats"
+    now = time.time()
+    
+    if cache_key in _cache:
+        data, timestamp = _cache[cache_key]
+        if now - timestamp < _cache_ttl:
+            return data
+    
+    # Fetch fresh data
+    if not USE_AGGREGATES:
+        return {}
+    
+    agg = _get_aggregate("GLOBAL", "STATS")
+    if agg and "data" in agg:
+        data = convert_decimals(agg["data"])
+        _cache[cache_key] = (data, now)
+        return data
+    return {}
+
+
 def get_global_stats() -> Dict:
     """
     Get all global KPIs from aggregates.
@@ -97,13 +126,7 @@ def get_global_stats() -> Dict:
             'todayLeadsCount': int
         }
     """
-    if not USE_AGGREGATES:
-        return {}
-    
-    agg = _get_aggregate("GLOBAL", "STATS")
-    if agg and "data" in agg:
-        return convert_decimals(agg["data"])
-    return {}
+    return _get_cached_global_stats()
 
 
 def get_total_coins_from_aggregates() -> Optional[float]:
@@ -140,16 +163,16 @@ def get_today_leads_from_aggregates() -> Optional[int]:
 
 def get_tier_stats_from_aggregates() -> Dict[str, Dict]:
     """
-    Get tier-wise statistics from aggregates.
-    
-    Returns:
-        {
-            'Gold': {'coins': X, 'rupees': Y, 'users': Z, 'rate': R},
-            'Silver': {...},
-            'Bronze': {...},
-            'Unknown': {...}
-        }
+    Get tier-wise statistics from aggregates (cached).
     """
+    cache_key = "tier_stats"
+    now = time.time()
+    
+    if cache_key in _cache:
+        data, timestamp = _cache[cache_key]
+        if now - timestamp < _cache_ttl:
+            return data
+    
     if not USE_AGGREGATES:
         return {}
     
@@ -159,6 +182,7 @@ def get_tier_stats_from_aggregates() -> Dict[str, Dict]:
         if agg and "data" in agg:
             tier_stats[tier] = convert_decimals(agg["data"])
     
+    _cache[cache_key] = (tier_stats, now)
     return tier_stats
 
 
@@ -166,22 +190,25 @@ def get_tier_stats_from_aggregates() -> Dict[str, Dict]:
 
 def get_leaderboard(leaderboard_name: str) -> List[Dict]:
     """
-    Get a leaderboard from aggregates.
-    
-    Args:
-        leaderboard_name: TOP_COIN_HOLDERS, TOP_REFERRERS, TOP_LEAD_GENERATORS, 
-                          TOP_EARNERS, or TOP_WITHDRAWERS
-    
-    Returns:
-        List of leaderboard items with rank, userId, userName, and metric
+    Get a leaderboard from aggregates (cached).
     """
+    cache_key = f"leaderboard_{leaderboard_name}"
+    now = time.time()
+    
+    if cache_key in _cache:
+        data, timestamp = _cache[cache_key]
+        if now - timestamp < _cache_ttl:
+            return data
+    
     if not USE_AGGREGATES:
         return []
     
     agg = _get_aggregate("LEADERBOARD", leaderboard_name)
     if agg and "data" in agg:
         data = convert_decimals(agg["data"])
-        return data.get("items", [])
+        items = data.get("items", [])
+        _cache[cache_key] = (items, now)
+        return items
     return []
 
 
