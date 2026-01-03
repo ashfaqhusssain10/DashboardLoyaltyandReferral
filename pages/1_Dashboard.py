@@ -317,38 +317,39 @@ except Exception as e:
     st.error(f"Error loading KPIs: {e}")
     st.info("Make sure your AWS credentials are configured correctly.")
 
-# Debug expander for pagination stats
-with st.expander("🔍 Pagination Debug Info"):
-    try:
-        from app.services.dynamodb_service import db_service
-        
-        # Get counts from each table
-        st.write("**Records fetched from each table:**")
-        
-        # WalletTable
-        wallets = db_service.scan_all("WalletTable", limit=None)
-        st.write(f"• **WalletTable**: {len(wallets)} records")
-        
-        # WalletTransactionTable
-        txns = db_service.scan_all("WalletTransactionTable", limit=None)
-        st.write(f"• **WalletTransactionTable**: {len(txns)} records")
-        
-        # TierReferralTable
-        refs = db_service.scan_all("TierReferralTable", limit=None)
-        st.write(f"• **TierReferralTable**: {len(refs)} records")
-        
-        # LeadTable
-        leads = db_service.scan_all("LeadTable", limit=None)
-        st.write(f"• **LeadTable**: {len(leads)} records")
-        
-        # WithdrawnTable
-        wdraws = db_service.scan_all("WithdrawnTable", limit=None)
-        st.write(f"• **WithdrawnTable**: {len(wdraws)} records")
-        
-        st.success("✅ Pagination is working - fetching all records!")
-        
-    except Exception as e:
-        st.warning(f"Debug error: {e}")
+# Debug expander DISABLED - was causing 6+ second delays due to full table scans
+# Uncomment only when debugging pagination issues
+# with st.expander("🔍 Pagination Debug Info"):
+#     try:
+#         from app.services.dynamodb_service import db_service
+#         
+#         # Get counts from each table
+#         st.write("**Records fetched from each table:**")
+#         
+#         # WalletTable
+#         wallets = db_service.scan_all("WalletTable", limit=None)
+#         st.write(f"• **WalletTable**: {len(wallets)} records")
+#         
+#         # WalletTransactionTable
+#         txns = db_service.scan_all("WalletTransactionTable", limit=None)
+#         st.write(f"• **WalletTransactionTable**: {len(txns)} records")
+#         
+#         # TierReferralTable
+#         refs = db_service.scan_all("TierReferralTable", limit=None)
+#         st.write(f"• **TierReferralTable**: {len(refs)} records")
+#         
+#         # LeadTable
+#         leads = db_service.scan_all("LeadTable", limit=None)
+#         st.write(f"• **LeadTable**: {len(leads)} records")
+#         
+#         # WithdrawnTable
+#         wdraws = db_service.scan_all("WithdrawnTable", limit=None)
+#         st.write(f"• **WithdrawnTable**: {len(wdraws)} records")
+#         
+#         st.success("✅ Pagination is working - fetching all records!")
+#         
+#     except Exception as e:
+#         st.warning(f"Debug error: {e}")
 
 st.markdown("---")
 
