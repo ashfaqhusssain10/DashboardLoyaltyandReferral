@@ -11,7 +11,7 @@ ENV/
 .eggs/
 *.egg-info/
 *.egg
-
+./Data_Attributes/wallet_data_20260103_154547.csv
 # IDE
 .idea/
 .vscode/
@@ -44,7 +44,6 @@ logs/
 # Local data
 *.csv
 *.xlsx
-!Data_Attributes/*.csv
 
 # Cache
 .cache/

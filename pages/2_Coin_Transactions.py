@@ -385,8 +385,11 @@ try:
             users = search_users(search_query)
             st.session_state.search_results = users
             st.session_state.search_query = search_query
-        
-        # Show all users feature removed - not practical for 184K users
+            
+            # Show "not found" message if no results
+            if not users:
+                st.warning(f"⚠️ No user found with phone number, email, or user ID: **{search_query}**")
+                st.info("💡 Try searching with the exact phone number (e.g., +919876543210) or user ID")
         
         # Display search results (from session state)
         if st.session_state.search_results:
@@ -414,8 +417,8 @@ try:
                         st.rerun()
                 
                 st.markdown("---")
-        elif not search_query and not show_all:
-            st.info("Enter a User ID or Phone Number to search, or check 'Show all users'")
+        elif not search_query:
+            st.info("Enter a phone number, email, or user ID to search")
 
 except Exception as e:
     st.error(f"Error: {e}")
