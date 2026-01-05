@@ -220,6 +220,52 @@ def get_leaderboard(leaderboard_name: str) -> List[Dict]:
     return []
 
 
+def get_weekly_leaderboard(leaderboard_name: str, limit: int = 5) -> List[Dict]:
+    """
+    Get weekly leaderboard from WEEKLY_LEADERBOARD aggregates.
+    Returns list of {userId, userName, count} sorted by count DESC.
+    
+    The weekly leaderboard stores user IDs and counts.
+    We need to look up user names.
+    """
+    from .user_service import get_user_by_id
+    
+    cache_key = f"weekly_leaderboard_{leaderboard_name}"
+    now = time.time()
+    
+    if cache_key in _cache:
+        data, timestamp = _cache[cache_key]
+        if now - timestamp < _cache_ttl:
+            return data[:limit]
+    
+    if not USE_AGGREGATES:
+        return []
+    
+    agg = _get_aggregate("WEEKLY_LEADERBOARD", leaderboard_name)
+    if agg and "data" in agg:
+        data = convert_decimals(agg["data"])
+        users_dict = data.get("users", {})
+        
+        # Sort by count descending
+        sorted_users = sorted(users_dict.items(), key=lambda x: int(x[1]), reverse=True)
+        
+        # Build result with user names
+        result = []
+        for user_id, count in sorted_users[:limit]:
+            user = get_user_by_id(user_id)
+            user_name = user.get('userName', 'Unknown') if user else 'Unknown'
+            result.append({
+                'userId': user_id,
+                'userName': user_name,
+                'count': int(count)
+            })
+        
+        _cache[cache_key] = (result, now)
+        return result
+    
+    return []
+
+
 def get_top_coin_holders_from_aggregates(limit: int = 5) -> List[Dict]:
     """Get top coin holders from aggregates."""
     items = get_leaderboard("TOP_COIN_HOLDERS")
@@ -227,13 +273,27 @@ def get_top_coin_holders_from_aggregates(limit: int = 5) -> List[Dict]:
 
 
 def get_top_referrers_from_aggregates(limit: int = 5) -> List[Dict]:
-    """Get top referrers from aggregates."""
+    """Get top referrers from weekly aggregates (falls back to all-time if unavailable)."""
+    # Try weekly first
+    weekly = get_weekly_leaderboard("TOP_REFERRERS", limit)
+    if weekly:
+        # Convert to expected format
+        return [{'userId': u['userId'], 'userName': u['userName'], 'referralCount': u['count']} for u in weekly]
+    
+    # Fallback to all-time (from LEADERBOARD type)
     items = get_leaderboard("TOP_REFERRERS")
     return items[:limit] if items else []
 
 
 def get_top_lead_generators_from_aggregates(limit: int = 5) -> List[Dict]:
-    """Get top lead generators from aggregates."""
+    """Get top lead generators from weekly aggregates (falls back to all-time if unavailable)."""
+    # Try weekly first
+    weekly = get_weekly_leaderboard("TOP_LEAD_GENERATORS", limit)
+    if weekly:
+        # Convert to expected format
+        return [{'userId': u['userId'], 'userName': u['userName'], 'leadCount': u['count']} for u in weekly]
+    
+    # Fallback to all-time (from LEADERBOARD type)
     items = get_leaderboard("TOP_LEAD_GENERATORS")
     return items[:limit] if items else []
 

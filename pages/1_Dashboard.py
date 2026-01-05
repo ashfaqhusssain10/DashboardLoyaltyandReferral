@@ -268,8 +268,8 @@ st.title("📊 Dashboard")
 st.markdown("Quick overview of your loyalty & referral system")
 
 # KPI Cards
-st.markdown("### Key Metrics")
-st.caption("Click any card to see detailed data")
+st.markdown("### 📅 Today's Metrics")
+st.caption("Live data • Click any card to see details")
 
 try:
     col1, col2, col3, col4, col5 = st.columns(5)
@@ -552,6 +552,9 @@ def show_all_earners_added():
         st.info("No data available")
 
 try:
+    st.markdown("### 🏆 Weekly Leaders")
+    st.caption("Top performers in the last 7 days")
+    
     # ======== ROW 1: Top Coin Holders | Top Coin Holders (Added to Wallet) | Top Earners ========
     lb_row1_col1, lb_row1_col2, lb_row1_col3 = st.columns(3)
     
@@ -662,7 +665,8 @@ except Exception as e:
 st.markdown("---")
 
 # ======== DAILY COIN ACTIVITY CHART WITH DATE FILTER (G05) ========
-st.markdown("### 📊 Daily Coin Activity")
+st.markdown("### 📊 Monthly Trends")
+st.caption("Coin activity over time (default: last 30 days)")
 
 # Date filter for coin activity
 coin_filter_col1, coin_filter_col2, coin_filter_col3 = st.columns([1, 1, 2])
@@ -670,7 +674,7 @@ coin_filter_col1, coin_filter_col2, coin_filter_col3 = st.columns([1, 1, 2])
 with coin_filter_col1:
     coin_start_date = st.date_input(
         "Start Date",
-        value=date.today() - timedelta(days=6),
+        value=date.today() - timedelta(days=29),
         max_value=date.today(),
         key="coin_start"
     )

@@ -203,12 +203,6 @@ def handle_referral_change(event_name, old_data, new_data):
         if created:
             update_aggregate("DAILY", created, {'referrals': 1})
         
-        # Trigger weekly leaderboard recalculation (async would be better)
-        # For now, we update incrementally
-        user_id = new_data.get('userId', '')
-        if user_id:
-            increment_weekly_referrer_count(user_id)
-        
         print(f"Referral added: date={created}")
         
     elif event_name == 'REMOVE':
@@ -220,53 +214,6 @@ def handle_referral_change(event_name, old_data, new_data):
         
         if created:
             update_aggregate("DAILY", created, {'referrals': -1})
-
-
-def increment_weekly_referrer_count(user_id):
-    """
-    Increment referral count for a user in weekly leaderboard.
-    Weekly leaderboard is stored as WEEKLY_LEADERBOARD/TOP_REFERRERS.
-    """
-    table = dynamodb.Table(AGGREGATES_TABLE)
-    
-    try:
-        # Get current weekly leaderboard
-        response = table.get_item(
-            Key={'aggregateType': 'WEEKLY_LEADERBOARD', 'aggregateId': 'TOP_REFERRERS'}
-        )
-        current_data = response.get('Item', {}).get('data', {'users': {}, 'weekStart': ''})
-        
-        # Check if week has changed (reset weekly counts on Monday)
-        from datetime import timedelta
-        today = date.today()
-        week_start = (today - timedelta(days=today.weekday())).isoformat()  # Monday of this week
-        
-        if current_data.get('weekStart') != week_start:
-            # New week - reset counts
-            current_data = {'users': {}, 'weekStart': week_start}
-        
-        # Increment user's count
-        users = current_data.get('users', {})
-        if user_id in users:
-            users[user_id] = int(users[user_id]) + 1
-        else:
-            users[user_id] = 1
-        
-        current_data['users'] = users
-        current_data['lastUpdated'] = int(datetime.now().timestamp())
-        
-        # Save back
-        table.put_item(Item={
-            'aggregateType': 'WEEKLY_LEADERBOARD',
-            'aggregateId': 'TOP_REFERRERS',
-            'data': current_data,
-            'lastUpdated': int(datetime.now().timestamp())
-        })
-        
-        print(f"Updated weekly referrer count for {user_id[:8]}...")
-        
-    except Exception as e:
-        print(f"Error updating weekly referrer: {e}")
 
 
 # =============================================================================
@@ -287,11 +234,6 @@ def handle_lead_change(event_name, old_data, new_data):
         if created:
             update_aggregate("DAILY", created, {'leads': 1})
         
-        # Track weekly lead generators
-        user_id = new_data.get('userId', '')
-        if user_id:
-            increment_weekly_lead_generator_count(user_id)
-        
         print(f"Lead added: date={created}")
         
     elif event_name == 'REMOVE':
@@ -302,49 +244,6 @@ def handle_lead_change(event_name, old_data, new_data):
         
         if created:
             update_aggregate("DAILY", created, {'leads': -1})
-
-
-def increment_weekly_lead_generator_count(user_id):
-    """
-    Increment lead count for a user in weekly leaderboard.
-    Weekly leaderboard is stored as WEEKLY_LEADERBOARD/TOP_LEAD_GENERATORS.
-    """
-    table = dynamodb.Table(AGGREGATES_TABLE)
-    
-    try:
-        response = table.get_item(
-            Key={'aggregateType': 'WEEKLY_LEADERBOARD', 'aggregateId': 'TOP_LEAD_GENERATORS'}
-        )
-        current_data = response.get('Item', {}).get('data', {'users': {}, 'weekStart': ''})
-        
-        # Check if week has changed (reset weekly counts on Monday)
-        from datetime import timedelta
-        today = date.today()
-        week_start = (today - timedelta(days=today.weekday())).isoformat()
-        
-        if current_data.get('weekStart') != week_start:
-            current_data = {'users': {}, 'weekStart': week_start}
-        
-        users = current_data.get('users', {})
-        if user_id in users:
-            users[user_id] = int(users[user_id]) + 1
-        else:
-            users[user_id] = 1
-        
-        current_data['users'] = users
-        current_data['lastUpdated'] = int(datetime.now().timestamp())
-        
-        table.put_item(Item={
-            'aggregateType': 'WEEKLY_LEADERBOARD',
-            'aggregateId': 'TOP_LEAD_GENERATORS',
-            'data': current_data,
-            'lastUpdated': int(datetime.now().timestamp())
-        })
-        
-        print(f"Updated weekly lead generator count for {user_id[:8]}...")
-        
-    except Exception as e:
-        print(f"Error updating weekly lead generator: {e}")
 
 
 # =============================================================================
