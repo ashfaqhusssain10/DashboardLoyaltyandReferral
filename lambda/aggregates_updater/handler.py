@@ -180,7 +180,56 @@ def handle_wallet_change(event_name, old_data, new_data):
             'users': active_delta
         })
     
+    # WEEKLY TRACKING: Track coin gains for weekly leaderboard
+    if coin_delta > 0:
+        user_id = new_data.get('userId', '')
+        if user_id:
+            increment_weekly_coin_gainer(user_id, coin_delta)
+    
     print(f"Wallet change: coins={coin_delta:+.2f}, active={active_delta:+d}")
+
+
+def increment_weekly_coin_gainer(user_id, coin_gain):
+    """
+    Track coin gains for weekly coin holders leaderboard.
+    Stored as WEEKLY_LEADERBOARD/TOP_COIN_HOLDERS.
+    """
+    table = dynamodb.Table(AGGREGATES_TABLE)
+    
+    try:
+        response = table.get_item(
+            Key={'aggregateType': 'WEEKLY_LEADERBOARD', 'aggregateId': 'TOP_COIN_HOLDERS'}
+        )
+        current_data = response.get('Item', {}).get('data', {'users': {}, 'weekStart': ''})
+        
+        # Check if week has changed (reset weekly counts on Monday)
+        from datetime import timedelta
+        today = date.today()
+        week_start = (today - timedelta(days=today.weekday())).isoformat()
+        
+        if current_data.get('weekStart') != week_start:
+            current_data = {'users': {}, 'weekStart': week_start}
+        
+        users = current_data.get('users', {})
+        if user_id in users:
+            users[user_id] = float(users[user_id]) + coin_gain
+        else:
+            users[user_id] = coin_gain
+        
+        current_data['users'] = users
+        current_data['lastUpdated'] = int(datetime.now().timestamp())
+        
+        table.put_item(Item={
+            'aggregateType': 'WEEKLY_LEADERBOARD',
+            'aggregateId': 'TOP_COIN_HOLDERS',
+            'data': current_data,
+            'lastUpdated': int(datetime.now().timestamp())
+        })
+        
+        print(f"Updated weekly coin gainer for {user_id[:8]}... (+{coin_gain})")
+        
+    except Exception as e:
+        print(f"Error updating weekly coin gainer: {e}")
 
 
 # =============================================================================
@@ -384,6 +433,62 @@ def handle_withdrawal_change(event_name, old_data, new_data):
             'pendingWithdrawalsAmount': amount_delta
         })
         print(f"Withdrawal change: count={count_delta:+d}, amount={amount_delta:+.2f}")
+    
+    # WEEKLY TRACKING: Track new withdrawal requests
+    if event_name == 'INSERT':
+        user_id = new_data.get('userId', '')
+        if user_id:
+            increment_weekly_withdrawer(user_id, new_amount)
+
+
+def increment_weekly_withdrawer(user_id, amount):
+    """
+    Track withdrawal requests for weekly withdrawers leaderboard.
+    Stored as WEEKLY_LEADERBOARD/TOP_WITHDRAWERS.
+    """
+    table = dynamodb.Table(AGGREGATES_TABLE)
+    
+    try:
+        response = table.get_item(
+            Key={'aggregateType': 'WEEKLY_LEADERBOARD', 'aggregateId': 'TOP_WITHDRAWERS'}
+        )
+        current_data = response.get('Item', {}).get('data', {'users': {}, 'weekStart': ''})
+        
+        # Check if week has changed (reset weekly counts on Monday)
+        from datetime import timedelta
+        today = date.today()
+        week_start = (today - timedelta(days=today.weekday())).isoformat()
+        
+        if current_data.get('weekStart') != week_start:
+            current_data = {'users': {}, 'weekStart': week_start}
+        
+        users = current_data.get('users', {})
+        if user_id in users:
+            # Store both count and total amount
+            user_data = users[user_id]
+            if isinstance(user_data, dict):
+                user_data['count'] = int(user_data.get('count', 0)) + 1
+                user_data['amount'] = float(user_data.get('amount', 0)) + amount
+            else:
+                user_data = {'count': 2, 'amount': float(user_data) + amount}
+            users[user_id] = user_data
+        else:
+            users[user_id] = {'count': 1, 'amount': amount}
+        
+        current_data['users'] = users
+        current_data['lastUpdated'] = int(datetime.now().timestamp())
+        
+        table.put_item(Item={
+            'aggregateType': 'WEEKLY_LEADERBOARD',
+            'aggregateId': 'TOP_WITHDRAWERS',
+            'data': current_data,
+            'lastUpdated': int(datetime.now().timestamp())
+        })
+        
+        print(f"Updated weekly withdrawer for {user_id[:8]}... (+{amount})")
+        
+    except Exception as e:
+        print(f"Error updating weekly withdrawer: {e}")
 
 
 # =============================================================================

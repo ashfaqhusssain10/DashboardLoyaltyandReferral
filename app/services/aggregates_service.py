@@ -267,7 +267,14 @@ def get_weekly_leaderboard(leaderboard_name: str, limit: int = 5) -> List[Dict]:
 
 
 def get_top_coin_holders_from_aggregates(limit: int = 5) -> List[Dict]:
-    """Get top coin holders from aggregates."""
+    """Get top coin holders (gains) from weekly aggregates (falls back to all-time if unavailable)."""
+    # Try weekly first
+    weekly = get_weekly_leaderboard("TOP_COIN_HOLDERS", limit)
+    if weekly:
+        # Convert to expected format (weekly tracks gains, stored as coin amount)
+        return [{'userId': u['userId'], 'userName': u['userName'], 'coins': u['count']} for u in weekly]
+    
+    # Fallback to all-time (from LEADERBOARD type)
     items = get_leaderboard("TOP_COIN_HOLDERS")
     return items[:limit] if items else []
 
@@ -299,13 +306,47 @@ def get_top_lead_generators_from_aggregates(limit: int = 5) -> List[Dict]:
 
 
 def get_top_earners_from_aggregates(limit: int = 5) -> List[Dict]:
-    """Get top earners from aggregates."""
+    """Get top earners from aggregates (all-time for now - needs WalletTransactionTable stream)."""
     items = get_leaderboard("TOP_EARNERS")
     return items[:limit] if items else []
 
 
 def get_top_withdrawers_from_aggregates(limit: int = 5) -> List[Dict]:
-    """Get top withdrawers from aggregates."""
+    """Get top withdrawers from weekly aggregates (falls back to all-time if unavailable)."""
+    from .user_service import get_user_by_id
+    
+    # Try weekly first
+    agg = _get_aggregate("WEEKLY_LEADERBOARD", "TOP_WITHDRAWERS")
+    if agg and "data" in agg:
+        data = convert_decimals(agg["data"])
+        users_dict = data.get("users", {})
+        
+        # Sort by count descending
+        sorted_users = sorted(users_dict.items(), key=lambda x: int(x[1].get('count', 0)) if isinstance(x[1], dict) else 1, reverse=True)
+        
+        result = []
+        for user_id, user_data in sorted_users[:limit]:
+            user = get_user_by_id(user_id)
+            user_name = user.get('userName', 'Unknown') if user else 'Unknown'
+            if isinstance(user_data, dict):
+                result.append({
+                    'userId': user_id,
+                    'userName': user_name,
+                    'withdrawalCount': int(user_data.get('count', 1)),
+                    'totalAmount': float(user_data.get('amount', 0))
+                })
+            else:
+                result.append({
+                    'userId': user_id,
+                    'userName': user_name,
+                    'withdrawalCount': 1,
+                    'totalAmount': float(user_data)
+                })
+        
+        if result:
+            return result
+    
+    # Fallback to all-time (from LEADERBOARD type)
     items = get_leaderboard("TOP_WITHDRAWERS")
     return items[:limit] if items else []
 
