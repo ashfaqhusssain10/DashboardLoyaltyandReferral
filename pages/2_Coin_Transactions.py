@@ -335,24 +335,31 @@ def display_user_details(user_id: str):
             orders = get_orders_by_user(user_id)
             
             if orders:
-                # Summary
+                # Summary - exclude failed orders from total value
                 total_orders = len(orders)
-                total_value = sum(float(o.get('grandTotal', 0)) for o in orders)
+                successful_orders = [o for o in orders if str(o.get('orderStatus', '')).upper() not in ['FAILED', 'CANCELLED', 'REJECTED']]
+                total_value = sum(float(o.get('grandTotal', 0)) for o in successful_orders)
                 
-                sum_col1, sum_col2 = st.columns(2)
+                sum_col1, sum_col2, sum_col3 = st.columns(3)
                 with sum_col1:
                     st.metric("Total Orders", total_orders)
                 with sum_col2:
+                    st.metric("Successful Orders", len(successful_orders))
+                with sum_col3:
                     st.metric("Total Order Value", f"₹{total_value:,.0f}")
                 
+                st.caption("⚠️ Failed/Cancelled orders are excluded from Total Order Value")
                 st.markdown("---")
                 
-                # Build table
+                # Build table - show dash for failed orders
                 table_data = []
                 for o in orders:
+                    status = str(o.get('orderStatus', 'Unknown')).upper()
+                    is_failed = status in ['FAILED', 'CANCELLED', 'REJECTED']
+                    
                     table_data.append({
                         'Order ID': str(o.get('orderId', 'N/A'))[:12] + '...',
-                        'Amount (₹)': f"₹{float(o.get('grandTotal', 0)):,.0f}",
+                        'Amount (₹)': '-' if is_failed else f"₹{float(o.get('grandTotal', 0)):,.0f}",
                         'Status': o.get('orderStatus', 'Unknown'),
                         'Payment': o.get('paymentStatus', 'Unknown'),
                         'Date': format_date(o.get('created_time'))
