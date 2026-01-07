@@ -1,0 +1,53 @@
+# Loyalty ETL Sync Workflow
+# Runs daily at 2 AM IST (8:30 PM UTC previous day)
+
+name: Loyalty ETL Sync
+
+on:
+  schedule:
+    # Run at 2 AM IST daily (8:30 PM UTC)
+    - cron: '30 20 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  sync-loyalty-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install boto3 python-dotenv
+      
+      - name: Run Loyalty ETL
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ap-south-1
+          S3_ETL_BUCKET: etl-bucket-05-01-2026
+          REDSHIFT_HOST: ${{ secrets.REDSHIFT_HOST }}
+          REDSHIFT_PORT: 5439
+          REDSHIFT_DATABASE: datawarehouse
+          REDSHIFT_USER: ${{ secrets.REDSHIFT_USER }}
+          REDSHIFT_PASSWORD: ${{ secrets.REDSHIFT_PASSWORD }}
+          REDSHIFT_IAM_ROLE: ${{ secrets.REDSHIFT_IAM_ROLE }}
+        run: |
+          cd Data_Attributes
+          python loyalty_etl.py --full
+      
+      - name: Upload execution log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: etl-log-${{ github.run_id }}
+          path: Data_Attributes/*.log
+          retention-days: 7

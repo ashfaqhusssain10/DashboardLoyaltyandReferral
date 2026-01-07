@@ -1,0 +1,2009 @@
+{
+  "discovery_time": "2026-01-07T15:46:43.777901",
+  "cluster": "data-pipeline-cluster.cnvwvj5onh5a.ap-south-1.redshift.amazonaws.com",
+  "database": "datawarehouse",
+  "schemas": {
+    "analytics": {
+      "owner": "admin",
+      "tables": {
+        "dim_dynamodb_master": {
+          "row_count": 3113,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "order_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_placed_date",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_mode_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "razorpay_order_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "grand_total",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "gst_amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "discount_amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "delivery_fees",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "coupon_code",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "menu_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "match_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "source",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            }
+          ],
+          "primary_keys": [],
+          "foreign_keys": []
+        },
+        "dim_feedback": {
+          "row_count": 0,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "order_id",
+              "type": "character varying(100)",
+              "nullable": false,
+              "is_primary_key": true,
+              "default": null
+            },
+            {
+              "name": "customer_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "phone_number",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "meal_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "vendor",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_date",
+              "type": "date",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "feedback_taken_date",
+              "type": "date",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "feedback_taken_by",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "feedback_rating",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "feedback_rating_numeric",
+              "type": "numeric(3,1)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "tone_of_customer",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "issues",
+              "type": "character varying(500)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "feedback_text",
+              "type": "character varying(1000)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "resolved",
+              "type": "boolean",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "operations_response",
+              "type": "character varying(500)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "ops_executive",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "delayed_by",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "month_year",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "source_month",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "source",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            }
+          ],
+          "primary_keys": [
+            "order_id"
+          ],
+          "foreign_keys": []
+        },
+        "dim_menu_master": {
+          "row_count": 2503,
+          "dist_key": "menu_id",
+          "sort_keys": [
+            "event_date"
+          ],
+          "columns": [
+            {
+              "name": "menu_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_number",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "meal_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_time",
+              "type": "character varying(10)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_date",
+              "type": "date",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "services",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "address",
+              "type": "character varying(500)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "address_link",
+              "type": "character varying(500)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "price_per_plate",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "food_cost",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "guest_count",
+              "type": "integer",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "packing_charge",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "delivery_charge",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "delivery_options",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "gst",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "service_charge",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "total_amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "grand_total",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "pending_payment",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "app_order_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "lead_converted_by",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "lead_source",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "coupon_code",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "discount_amount",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_date_timestamp",
+              "type": "bigint",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "source",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            }
+          ],
+          "primary_keys": [],
+          "foreign_keys": []
+        },
+        "dim_order_header_unified": {
+          "row_count": 2474,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "app_order_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_userid",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "internal_userid",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_placed_date",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "transaction_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_mode_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "razorpay_order_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "razorpay_payment_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "grand_total_system",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "gst_amount_system",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "discount_amount_system",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "delivery_fees_system",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "coupon_code_system",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "quotation_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "source",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "menu_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_number",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "meal_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_date",
+              "type": "date",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_time",
+              "type": "character varying(10)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "guest_count",
+              "type": "integer",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "address",
+              "type": "character varying(500)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "price_per_plate",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "delivery_charge",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "gst",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "grand_total",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "lead_source",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "services",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "food_cost",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "packing_charge",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            }
+          ],
+          "primary_keys": [],
+          "foreign_keys": []
+        },
+        "dim_supabase_master": {
+          "row_count": 1314,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "order_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_userid",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "internal_userid",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_placed_date",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_mode_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "razorpay_order_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "grand_total",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "gst_amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "discount_amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "delivery_fees",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "coupon_code",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "quotation_id",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "razorpay_payment_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "menu_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "match_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "source",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            }
+          ],
+          "primary_keys": [],
+          "foreign_keys": []
+        },
+        "fact_orders_unified": {
+          "row_count": 25788,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "app_order_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "menu_order_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "plate_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "plate_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "category_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "category_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "item_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "item_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "item_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "item_quantity",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "item_price",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "quantity_unit",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "base_ratio",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_date",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_time",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "guest_count",
+              "type": "integer",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "platter_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "service_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "address_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "transaction_status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "source",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "menu_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_number",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "meal_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "item_total",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            }
+          ],
+          "primary_keys": [],
+          "foreign_keys": []
+        }
+      }
+    },
+    "loyalty": {
+      "owner": "admin",
+      "tables": {
+        "dim_loyalty_users": {
+          "row_count": 184828,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "user_id",
+              "type": "character varying(50)",
+              "nullable": false,
+              "is_primary_key": true,
+              "default": null
+            },
+            {
+              "name": "user_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "phone_number",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "phone_normalized",
+              "type": "character varying(10)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "email",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "tier_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "tier_name",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "referral_code",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "remaining_coins",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": "0"
+            },
+            {
+              "name": "total_earned",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": "0"
+            },
+            {
+              "name": "total_used",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": "0"
+            },
+            {
+              "name": "signup_date",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": "getdate()"
+            }
+          ],
+          "primary_keys": [
+            "user_id"
+          ],
+          "foreign_keys": []
+        },
+        "dim_tier": {
+          "row_count": 3,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "tier_id",
+              "type": "character varying(50)",
+              "nullable": false,
+              "is_primary_key": true,
+              "default": null
+            },
+            {
+              "name": "tier_name",
+              "type": "character varying(20)",
+              "nullable": false,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "redemption_rate",
+              "type": "numeric(3,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": "getdate()"
+            }
+          ],
+          "primary_keys": [
+            "tier_id"
+          ],
+          "foreign_keys": []
+        },
+        "fact_leads": {
+          "row_count": 445,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "lead_id",
+              "type": "character varying(50)",
+              "nullable": false,
+              "is_primary_key": true,
+              "default": null
+            },
+            {
+              "name": "generator_user_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "generator_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "lead_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "lead_phone",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "occasion_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "lead_stage",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "estimated_value",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": "getdate()"
+            }
+          ],
+          "primary_keys": [
+            "lead_id"
+          ],
+          "foreign_keys": []
+        },
+        "fact_orders": {
+          "row_count": 3121,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "order_id",
+              "type": "character varying(100)",
+              "nullable": false,
+              "is_primary_key": true,
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "user_name",
+              "type": "character varying(200)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "phone_number",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "grand_total",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "sub_total",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "discount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "coins_used",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_status",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_mode",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            }
+          ],
+          "primary_keys": [
+            "order_id"
+          ],
+          "foreign_keys": []
+        },
+        "fact_referrals": {
+          "row_count": 4414,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "referral_id",
+              "type": "character varying(50)",
+              "nullable": false,
+              "is_primary_key": true,
+              "default": null
+            },
+            {
+              "name": "referrer_user_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "referrer_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "referred_phone",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "referred_phone_normalized",
+              "type": "character varying(10)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "referred_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "referred_user_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "referral_code",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "bonus_amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": "getdate()"
+            }
+          ],
+          "primary_keys": [
+            "referral_id"
+          ],
+          "foreign_keys": []
+        },
+        "fact_wallet_transactions": {
+          "row_count": 17038,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "transaction_id",
+              "type": "character varying(50)",
+              "nullable": false,
+              "is_primary_key": true,
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "transaction_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "title",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "reason",
+              "type": "character varying(500)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": "getdate()"
+            }
+          ],
+          "primary_keys": [
+            "transaction_id"
+          ],
+          "foreign_keys": []
+        },
+        "fact_withdrawals": {
+          "row_count": 44,
+          "dist_key": null,
+          "sort_keys": [],
+          "columns": [
+            {
+              "name": "withdrawal_id",
+              "type": "character varying(50)",
+              "nullable": false,
+              "is_primary_key": true,
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "user_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "requested_amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "approved_amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "status",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "bank_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "upi_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "processed_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": "getdate()"
+            }
+          ],
+          "primary_keys": [
+            "withdrawal_id"
+          ],
+          "foreign_keys": []
+        }
+      }
+    },
+    "public": {
+      "owner": "admin",
+      "tables": {
+        "dim_menu_master": {
+          "row_count": 2222,
+          "dist_key": "menu_id",
+          "sort_keys": [
+            "event_date"
+          ],
+          "columns": [
+            {
+              "name": "menu_id",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_name",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "customer_number",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "meal_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_time",
+              "type": "character varying(10)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_date",
+              "type": "date",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "services",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "address",
+              "type": "character varying(500)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "address_link",
+              "type": "character varying(500)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "price_per_plate",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "food_cost",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "guest_count",
+              "type": "integer",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "packing_charge",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "delivery_charge",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "delivery_options",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "gst",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "service_charge",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "total_amount",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "grand_total",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "payment_type",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "pending_payment",
+              "type": "numeric(12,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "order_type",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "app_order_id",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "lead_converted_by",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "lead_source",
+              "type": "character varying(100)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "coupon_code",
+              "type": "character varying(50)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "discount_amount",
+              "type": "numeric(10,2)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "event_date_timestamp",
+              "type": "bigint",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "source",
+              "type": "character varying(20)",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            },
+            {
+              "name": "loaded_at",
+              "type": "timestamp without time zone",
+              "nullable": true,
+              "is_primary_key": false,
+              "default": null
+            }
+          ],
+          "primary_keys": [],
+          "foreign_keys": []
+        }
+      }
+    }
+  }
+}

@@ -83,12 +83,12 @@ def _put_aggregate(aggregate_type: str, aggregate_id: str, data: Dict) -> bool:
 
 # ============ GLOBAL KPIs ============
 
-# Cache aggregates for 60 seconds to reduce DynamoDB calls
+# Cache aggregates for 360 seconds (6 minutes) to reduce DynamoDB calls
 from functools import lru_cache
 import time
 
 _cache = {}
-_cache_ttl = 60  # seconds
+_cache_ttl = 360  # seconds (6 minutes)
 
 def _get_cached_global_stats():
     """Get global stats with caching."""

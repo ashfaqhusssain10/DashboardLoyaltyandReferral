@@ -1,0 +1,403 @@
+================================================================================
+REDSHIFT SCHEMA DISCOVERY
+Cluster: data-pipeline-cluster.cnvwvj5onh5a.ap-south-1.redshift.amazonaws.com
+Database: datawarehouse
+Time: 2026-01-07T15:46:44.663982
+================================================================================
+
+Found 2 schema(s):
+  - analytics (owner: admin)
+  - loyalty (owner: admin)
+
+--------------------------------------------------------------------------------
+Found 14 table(s) total
+
+================================================================================
+TABLE: analytics.dim_dynamodb_master
+Owner: admin
+Approximate Rows: 3,113
+----------------------------------------
+COLUMNS:
+  order_id: character varying(50) NULL
+  user_id: character varying(50) NULL
+  order_placed_date: timestamp without time zone NULL
+  order_status: character varying(20) NULL
+  payment_status: character varying(20) NULL
+  payment_type: character varying(20) NULL
+  payment_mode_type: character varying(20) NULL
+  razorpay_order_id: character varying(50) NULL
+  grand_total: numeric(12,2) NULL
+  gst_amount: numeric(12,2) NULL
+  discount_amount: numeric(12,2) NULL
+  delivery_fees: numeric(12,2) NULL
+  coupon_code: character varying(50) NULL
+  created_at: timestamp without time zone NULL
+  updated_at: timestamp without time zone NULL
+  menu_id: character varying(100) NULL
+  match_status: character varying(20) NULL
+  source: character varying(20) NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: analytics.dim_feedback
+Owner: admin
+Approximate Rows: 0
+----------------------------------------
+COLUMNS:
+  order_id: character varying(100) NOT NULL [PK]
+  customer_name: character varying(100) NULL
+  phone_number: character varying(50) NULL
+  meal_type: character varying(50) NULL
+  vendor: character varying(100) NULL
+  event_date: date NULL
+  feedback_taken_date: date NULL
+  feedback_taken_by: character varying(100) NULL
+  feedback_rating: character varying(50) NULL
+  feedback_rating_numeric: numeric(3,1) NULL
+  tone_of_customer: character varying(100) NULL
+  issues: character varying(500) NULL
+  feedback_text: character varying(1000) NULL
+  resolved: boolean NULL
+  operations_response: character varying(500) NULL
+  ops_executive: character varying(100) NULL
+  delayed_by: character varying(50) NULL
+  month_year: character varying(50) NULL
+  source_month: character varying(50) NULL
+  source: character varying(50) NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: analytics.dim_menu_master
+Owner: admin
+Approximate Rows: 2,503
+Distribution Key: menu_id
+Sort Keys: event_date
+----------------------------------------
+COLUMNS:
+  menu_id: character varying(100) NULL
+  customer_name: character varying(100) NULL
+  customer_number: character varying(20) NULL
+  event_type: character varying(50) NULL
+  meal_type: character varying(50) NULL
+  event_time: character varying(10) NULL
+  event_date: date NULL
+  services: character varying(50) NULL
+  address: character varying(500) NULL
+  address_link: character varying(500) NULL
+  price_per_plate: numeric(10,2) NULL
+  food_cost: numeric(10,2) NULL
+  guest_count: integer NULL
+  packing_charge: numeric(10,2) NULL
+  delivery_charge: numeric(10,2) NULL
+  delivery_options: character varying(50) NULL
+  gst: numeric(10,2) NULL
+  service_charge: numeric(10,2) NULL
+  total_amount: numeric(12,2) NULL
+  grand_total: numeric(12,2) NULL
+  payment_type: character varying(20) NULL
+  pending_payment: numeric(12,2) NULL
+  order_type: character varying(50) NULL
+  app_order_id: character varying(50) NULL
+  lead_converted_by: character varying(50) NULL
+  lead_source: character varying(100) NULL
+  coupon_code: character varying(50) NULL
+  discount_amount: numeric(10,2) NULL
+  event_date_timestamp: bigint NULL
+  source: character varying(20) NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: analytics.dim_order_header_unified
+Owner: admin
+Approximate Rows: 2,474
+----------------------------------------
+COLUMNS:
+  app_order_id: character varying(50) NULL
+  user_id: character varying(50) NULL
+  customer_userid: character varying(50) NULL
+  internal_userid: character varying(50) NULL
+  order_placed_date: timestamp without time zone NULL
+  transaction_status: character varying(20) NULL
+  payment_status: character varying(20) NULL
+  payment_type: character varying(20) NULL
+  payment_mode_type: character varying(20) NULL
+  razorpay_order_id: character varying(50) NULL
+  razorpay_payment_id: character varying(100) NULL
+  grand_total_system: numeric(12,2) NULL
+  gst_amount_system: numeric(12,2) NULL
+  discount_amount_system: numeric(12,2) NULL
+  delivery_fees_system: numeric(12,2) NULL
+  coupon_code_system: character varying(50) NULL
+  quotation_id: character varying(50) NULL
+  created_at: timestamp without time zone NULL
+  updated_at: timestamp without time zone NULL
+  source: character varying(20) NULL
+  menu_id: character varying(100) NULL
+  customer_name: character varying(100) NULL
+  customer_number: character varying(20) NULL
+  event_type: character varying(50) NULL
+  meal_type: character varying(50) NULL
+  event_date: date NULL
+  event_time: character varying(10) NULL
+  guest_count: integer NULL
+  address: character varying(500) NULL
+  price_per_plate: numeric(10,2) NULL
+  delivery_charge: numeric(10,2) NULL
+  gst: numeric(10,2) NULL
+  grand_total: numeric(12,2) NULL
+  order_type: character varying(50) NULL
+  lead_source: character varying(100) NULL
+  services: character varying(50) NULL
+  food_cost: numeric(10,2) NULL
+  packing_charge: numeric(10,2) NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: analytics.dim_supabase_master
+Owner: admin
+Approximate Rows: 1,314
+----------------------------------------
+COLUMNS:
+  order_id: character varying(50) NULL
+  customer_userid: character varying(50) NULL
+  internal_userid: character varying(50) NULL
+  order_placed_date: timestamp without time zone NULL
+  order_status: character varying(20) NULL
+  payment_status: character varying(20) NULL
+  payment_type: character varying(20) NULL
+  payment_mode_type: character varying(20) NULL
+  razorpay_order_id: character varying(50) NULL
+  grand_total: numeric(12,2) NULL
+  gst_amount: numeric(12,2) NULL
+  discount_amount: numeric(12,2) NULL
+  delivery_fees: numeric(12,2) NULL
+  coupon_code: character varying(50) NULL
+  quotation_id: numeric(10,2) NULL
+  razorpay_payment_id: character varying(100) NULL
+  created_at: timestamp without time zone NULL
+  updated_at: timestamp without time zone NULL
+  menu_id: character varying(100) NULL
+  match_status: character varying(20) NULL
+  source: character varying(20) NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: analytics.fact_orders_unified
+Owner: admin
+Approximate Rows: 25,788
+----------------------------------------
+COLUMNS:
+  app_order_id: character varying(50) NULL
+  menu_order_id: character varying(100) NULL
+  plate_id: character varying(50) NULL
+  plate_name: character varying(100) NULL
+  category_id: character varying(50) NULL
+  category_name: character varying(100) NULL
+  item_id: character varying(50) NULL
+  item_name: character varying(100) NULL
+  item_type: character varying(20) NULL
+  item_quantity: numeric(10,2) NULL
+  item_price: numeric(10,2) NULL
+  quantity_unit: character varying(20) NULL
+  base_ratio: numeric(10,2) NULL
+  event_date: timestamp without time zone NULL
+  event_time: character varying(50) NULL
+  guest_count: integer NULL
+  platter_type: character varying(50) NULL
+  service_type: character varying(50) NULL
+  address_id: character varying(50) NULL
+  payment_status: character varying(20) NULL
+  transaction_status: character varying(20) NULL
+  source: character varying(20) NULL
+  menu_id: character varying(100) NULL
+  customer_name: character varying(100) NULL
+  customer_number: character varying(20) NULL
+  event_type: character varying(50) NULL
+  meal_type: character varying(50) NULL
+  order_type: character varying(50) NULL
+  item_total: numeric(12,2) NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: loyalty.dim_loyalty_users
+Owner: admin
+Approximate Rows: 184,828
+----------------------------------------
+COLUMNS:
+  user_id: character varying(50) NOT NULL [PK]
+  user_name: character varying(100) NULL
+  phone_number: character varying(20) NULL
+  phone_normalized: character varying(10) NULL
+  email: character varying(100) NULL
+  tier_id: character varying(50) NULL
+  tier_name: character varying(20) NULL
+  referral_code: character varying(20) NULL
+  remaining_coins: numeric(12,2) NULL
+  total_earned: numeric(12,2) NULL
+  total_used: numeric(12,2) NULL
+  signup_date: timestamp without time zone NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: loyalty.dim_tier
+Owner: admin
+Approximate Rows: 3
+----------------------------------------
+COLUMNS:
+  tier_id: character varying(50) NOT NULL [PK]
+  tier_name: character varying(20) NOT NULL
+  redemption_rate: numeric(3,2) NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: loyalty.fact_leads
+Owner: admin
+Approximate Rows: 445
+----------------------------------------
+COLUMNS:
+  lead_id: character varying(50) NOT NULL [PK]
+  generator_user_id: character varying(50) NULL
+  generator_name: character varying(100) NULL
+  lead_name: character varying(100) NULL
+  lead_phone: character varying(20) NULL
+  occasion_name: character varying(100) NULL
+  lead_stage: character varying(100) NULL
+  estimated_value: numeric(12,2) NULL
+  created_at: timestamp without time zone NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: loyalty.fact_orders
+Owner: admin
+Approximate Rows: 3,121
+----------------------------------------
+COLUMNS:
+  order_id: character varying(100) NOT NULL [PK]
+  user_id: character varying(100) NULL
+  user_name: character varying(200) NULL
+  phone_number: character varying(50) NULL
+  grand_total: numeric(12,2) NULL
+  sub_total: numeric(12,2) NULL
+  discount: numeric(12,2) NULL
+  coins_used: numeric(12,2) NULL
+  order_status: character varying(50) NULL
+  payment_mode: character varying(50) NULL
+  created_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: loyalty.fact_referrals
+Owner: admin
+Approximate Rows: 4,414
+----------------------------------------
+COLUMNS:
+  referral_id: character varying(50) NOT NULL [PK]
+  referrer_user_id: character varying(50) NULL
+  referrer_name: character varying(100) NULL
+  referred_phone: character varying(20) NULL
+  referred_phone_normalized: character varying(10) NULL
+  referred_name: character varying(100) NULL
+  referred_user_id: character varying(50) NULL
+  referral_code: character varying(20) NULL
+  bonus_amount: numeric(12,2) NULL
+  status: character varying(20) NULL
+  created_at: timestamp without time zone NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: loyalty.fact_wallet_transactions
+Owner: admin
+Approximate Rows: 17,038
+----------------------------------------
+COLUMNS:
+  transaction_id: character varying(50) NOT NULL [PK]
+  user_id: character varying(50) NULL
+  transaction_type: character varying(20) NULL
+  title: character varying(100) NULL
+  amount: numeric(12,2) NULL
+  reason: character varying(500) NULL
+  status: character varying(20) NULL
+  created_at: timestamp without time zone NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: loyalty.fact_withdrawals
+Owner: admin
+Approximate Rows: 44
+----------------------------------------
+COLUMNS:
+  withdrawal_id: character varying(50) NOT NULL [PK]
+  user_id: character varying(50) NULL
+  user_name: character varying(100) NULL
+  requested_amount: numeric(12,2) NULL
+  approved_amount: numeric(12,2) NULL
+  status: character varying(20) NULL
+  bank_id: character varying(50) NULL
+  upi_id: character varying(100) NULL
+  created_at: timestamp without time zone NULL
+  processed_at: timestamp without time zone NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+TABLE: public.dim_menu_master
+Owner: admin
+Approximate Rows: 2,222
+Distribution Key: menu_id
+Sort Keys: event_date
+----------------------------------------
+COLUMNS:
+  menu_id: character varying(100) NULL
+  customer_name: character varying(100) NULL
+  customer_number: character varying(20) NULL
+  event_type: character varying(50) NULL
+  meal_type: character varying(50) NULL
+  event_time: character varying(10) NULL
+  event_date: date NULL
+  services: character varying(50) NULL
+  address: character varying(500) NULL
+  address_link: character varying(500) NULL
+  price_per_plate: numeric(10,2) NULL
+  food_cost: numeric(10,2) NULL
+  guest_count: integer NULL
+  packing_charge: numeric(10,2) NULL
+  delivery_charge: numeric(10,2) NULL
+  delivery_options: character varying(50) NULL
+  gst: numeric(10,2) NULL
+  service_charge: numeric(10,2) NULL
+  total_amount: numeric(12,2) NULL
+  grand_total: numeric(12,2) NULL
+  payment_type: character varying(20) NULL
+  pending_payment: numeric(12,2) NULL
+  order_type: character varying(50) NULL
+  app_order_id: character varying(50) NULL
+  lead_converted_by: character varying(50) NULL
+  lead_source: character varying(100) NULL
+  coupon_code: character varying(50) NULL
+  discount_amount: numeric(10,2) NULL
+  event_date_timestamp: bigint NULL
+  source: character varying(20) NULL
+  loaded_at: timestamp without time zone NULL
+
+================================================================================
+SUMMARY
+================================================================================
+Total Schemas: 2
+Total Tables: 14
+
+Tables by Schema:
+  analytics: 6 tables
+    - dim_dynamodb_master
+    - dim_feedback
+    - dim_menu_master
+    - dim_order_header_unified
+    - dim_supabase_master
+    - fact_orders_unified
+  loyalty: 7 tables
+    - dim_loyalty_users
+    - dim_tier
+    - fact_leads
+    - fact_orders
+    - fact_referrals
+    - fact_wallet_transactions
+    - fact_withdrawals
+  public: 1 tables
+    - dim_menu_master

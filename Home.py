@@ -53,29 +53,24 @@ st.markdown('<p class="sub-header">CraftMyPlate Loyalty & Referral Management Sy
 # Welcome section
 st.markdown("---")
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("### 📊 Dashboard")
-    st.write("View KPIs, referral trends, and system health at a glance.")
+    st.markdown("### 📊 Dashboard & Transactions")
+    st.write("View KPIs, leaderboards, charts, and manage user coin transactions.")
     if st.button("Go to Dashboard", key="btn_dashboard"):
         st.switch_page("pages/1_Dashboard.py")
 
 with col2:
-    st.markdown("### 💰 Coin Transactions")
-    st.write("Search users, view coin history, leads, and referrals.")
-    if st.button("Go to Transactions", key="btn_transactions"):
-        st.switch_page("pages/2_Coin_Transactions.py")
-
-with col3:
     st.markdown("### 🏧 Withdrawals")
     st.write("Review and approve/reject withdrawal requests.")
     if st.button("Go to Withdrawals", key="btn_withdrawals"):
-        st.switch_page("pages/3_Withdrawals.py")
+        st.switch_page("pages/2_Withdrawals.py")
 
 # Footer
 st.markdown("---")
 st.markdown(
-    "<p style='text-align: center; color: #9ca3af;'>Admin Control Tower v1.0 | CraftMyPlate</p>",
+    "<p style='text-align: center; color: #9ca3af;'>Admin Control Tower v2.0 | CraftMyPlate | Consolidated UI</p>",
     unsafe_allow_html=True
 )
+

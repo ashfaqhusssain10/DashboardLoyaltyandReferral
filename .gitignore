@@ -61,3 +61,11 @@ htmlcov/
 # Build
 dist/
 build/
+
+# Redshift Schema Discovery (contains credentials/sensitive data)
+Data_Attributes/discover_redshift_schema.py
+Data_Attributes/sample_analytics_data.py
+Data_Attributes/redshift_schema.json
+Data_Attributes/redshift_schema_output.txt
+sample_analytics_data.txt
+

@@ -33,3 +33,6 @@ from .order_service import (
     get_order_revenue_by_user,
     get_referral_revenue_for_user
 )
+
+# Redshift analytics service (use for historical data/analytics)
+from . import redshift_service
