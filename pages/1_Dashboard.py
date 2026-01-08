@@ -1221,6 +1221,181 @@ def render_coin_transactions_tab():
         st.error(f"Error: {e}")
 
 
+# ======== ORDER HISTORY CONTENT ========
+
+def render_order_history_tab():
+    """Render the Order History tab content."""
+    
+    st.markdown("### 📦 Order History")
+    st.caption("Browse all orders from the system")
+    
+    # Initialize session state for order history
+    if 'order_period' not in st.session_state:
+        st.session_state.order_period = 'all'
+    if 'order_search' not in st.session_state:
+        st.session_state.order_search = ''
+    if 'order_page' not in st.session_state:
+        st.session_state.order_page = 0
+    if 'order_custom_start' not in st.session_state:
+        st.session_state.order_custom_start = date.today() - timedelta(days=30)
+    if 'order_custom_end' not in st.session_state:
+        st.session_state.order_custom_end = date.today()
+    
+    # Date filter buttons
+    st.markdown("#### 📅 Filter by Period")
+    filter_col1, filter_col2, filter_col3, filter_col4 = st.columns(4)
+    
+    with filter_col1:
+        if st.button("📅 All Time", use_container_width=True, 
+                     type="primary" if st.session_state.order_period == 'all' else "secondary"):
+            st.session_state.order_period = 'all'
+            st.session_state.order_page = 0
+            st.rerun()
+    
+    with filter_col2:
+        if st.button("📆 This Month", use_container_width=True,
+                     type="primary" if st.session_state.order_period == 'month' else "secondary"):
+            st.session_state.order_period = 'month'
+            st.session_state.order_page = 0
+            st.rerun()
+    
+    with filter_col3:
+        if st.button("📌 Today", use_container_width=True,
+                     type="primary" if st.session_state.order_period == 'today' else "secondary"):
+            st.session_state.order_period = 'today'
+            st.session_state.order_page = 0
+            st.rerun()
+    
+    with filter_col4:
+        if st.button("🗓️ Custom Range", use_container_width=True,
+                     type="primary" if st.session_state.order_period == 'custom' else "secondary"):
+            st.session_state.order_period = 'custom'
+            st.session_state.order_page = 0
+            st.rerun()
+    
+    # Custom date range inputs
+    if st.session_state.order_period == 'custom':
+        custom_col1, custom_col2 = st.columns(2)
+        with custom_col1:
+            st.session_state.order_custom_start = st.date_input(
+                "Start Date", 
+                value=st.session_state.order_custom_start,
+                key="order_start_date"
+            )
+        with custom_col2:
+            st.session_state.order_custom_end = st.date_input(
+                "End Date", 
+                value=st.session_state.order_custom_end,
+                key="order_end_date"
+            )
+    
+    st.markdown("---")
+    
+    # Search box
+    search_col1, search_col2 = st.columns([4, 1])
+    with search_col1:
+        search_query = st.text_input(
+            "🔍 Search Orders",
+            value=st.session_state.order_search,
+            placeholder="Search by Order ID, User Name, or Phone...",
+            key="order_search_input"
+        )
+    with search_col2:
+        search_clicked = st.button("🔍 Search", use_container_width=True, key="order_search_btn")
+    
+    if search_clicked:
+        st.session_state.order_search = search_query
+        st.session_state.order_page = 0
+    
+    # Period label
+    period_labels = {
+        'all': 'All Time',
+        'month': 'Last 30 Days',
+        'today': 'Today',
+        'custom': f"{st.session_state.order_custom_start} to {st.session_state.order_custom_end}"
+    }
+    st.caption(f"Showing: **{period_labels.get(st.session_state.order_period, 'All Time')}**" + 
+               (f" | Search: **{st.session_state.order_search}**" if st.session_state.order_search else ""))
+    
+    # Fetch orders
+    try:
+        page_size = 50
+        offset = st.session_state.order_page * page_size
+        
+        # Get orders from Redshift
+        orders = redshift_service.get_all_orders(
+            limit=page_size,
+            offset=offset,
+            period=st.session_state.order_period,
+            start_date=st.session_state.order_custom_start if st.session_state.order_period == 'custom' else None,
+            end_date=st.session_state.order_custom_end if st.session_state.order_period == 'custom' else None,
+            search_query=st.session_state.order_search if st.session_state.order_search else None
+        )
+        
+        # Get total count for pagination
+        total_orders = redshift_service.get_orders_count(
+            period=st.session_state.order_period,
+            start_date=st.session_state.order_custom_start if st.session_state.order_period == 'custom' else None,
+            end_date=st.session_state.order_custom_end if st.session_state.order_period == 'custom' else None,
+            search_query=st.session_state.order_search if st.session_state.order_search else None
+        )
+        
+        total_pages = (total_orders + page_size - 1) // page_size
+        
+        # Summary stats
+        stat_col1, stat_col2, stat_col3 = st.columns(3)
+        with stat_col1:
+            st.metric("📦 Total Orders", f"{total_orders:,}")
+        with stat_col2:
+            st.metric("📄 Current Page", f"{st.session_state.order_page + 1} of {max(1, total_pages)}")
+        with stat_col3:
+            st.metric("📊 Showing", f"{len(orders)} orders")
+        
+        st.markdown("---")
+        
+        if orders:
+            # Create DataFrame
+            df = pd.DataFrame(orders)
+            
+            # Format columns
+            df['Order ID'] = df['order_id'].apply(lambda x: str(x)[:15] + '...' if len(str(x)) > 15 else str(x))
+            df['User'] = df['user_name'].fillna('Unknown')
+            df['Phone'] = df['phone_number'].fillna('N/A')
+            df['Amount'] = df['grand_total'].apply(lambda x: f"₹{float(x):,.0f}")
+            df['Status'] = df['order_status'].fillna('Unknown')
+            df['Payment'] = df['payment_mode'].fillna('N/A')
+            df['Date (created_at)'] = pd.to_datetime(df['created_at']).dt.strftime('%Y-%m-%d %H:%M')
+            
+            # Display table
+            display_df = df[['Order ID', 'User', 'Phone', 'Amount', 'Status', 'Payment', 'Date (created_at)']]
+            st.dataframe(display_df, use_container_width=True, hide_index=True, height=500)
+            
+            # Pagination controls
+            st.markdown("---")
+            pag_col1, pag_col2, pag_col3 = st.columns([1, 2, 1])
+            
+            with pag_col1:
+                if st.session_state.order_page > 0:
+                    if st.button("← Previous", use_container_width=True):
+                        st.session_state.order_page -= 1
+                        st.rerun()
+            
+            with pag_col2:
+                st.markdown(f"<div style='text-align: center; padding: 10px;'>Page {st.session_state.order_page + 1} of {max(1, total_pages)}</div>", unsafe_allow_html=True)
+            
+            with pag_col3:
+                if st.session_state.order_page < total_pages - 1:
+                    if st.button("Next →", use_container_width=True):
+                        st.session_state.order_page += 1
+                        st.rerun()
+        else:
+            st.info("📭 No orders found for the selected filters")
+            
+    except Exception as e:
+        st.error(f"Error loading orders: {e}")
+        st.caption("Make sure Redshift connection is configured correctly")
+
+
 # ======== MAIN PAGE ========
 
 st.title("🏢 Admin Control Tower")
@@ -1241,11 +1416,14 @@ if st.session_state.selected_user_id:
 
 else:
     # Show main tabs when no user is selected
-    main_tab1, main_tab2 = st.tabs(["📊 Dashboard", "💰 Coin Transactions"])
+    main_tab1, main_tab2, main_tab3 = st.tabs(["📊 Dashboard", "💰 Coin Transactions", "📦 Order History"])
     
     with main_tab1:
         render_dashboard_tab()
     
     with main_tab2:
         render_coin_transactions_tab()
+    
+    with main_tab3:
+        render_order_history_tab()
 

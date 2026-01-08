@@ -532,6 +532,113 @@ class RedshiftService:
         """
         results = self.execute_query(query)
         return results[0] if results else {}
+    
+    # =========================================================================
+    # ORDER HISTORY QUERIES
+    # =========================================================================
+    
+    def get_all_orders(self, limit: int = 100, offset: int = 0, period: str = 'all', 
+                       start_date: date = None, end_date: date = None, 
+                       search_query: str = None) -> List[Dict]:
+        """
+        Get orders from fact_orders with filtering and pagination.
+        
+        Args:
+            limit: Number of orders to return
+            offset: Offset for pagination
+            period: 'all' | 'month' | 'today' | 'custom'
+            start_date: Custom start date (for period='custom')
+            end_date: Custom end date (for period='custom')
+            search_query: Search by user_name, phone_number, or order_id
+        """
+        # Build date filter
+        date_filter = ""
+        if period == 'today':
+            date_filter = "AND DATE(o.created_at) = CURRENT_DATE"
+        elif period == 'month':
+            date_filter = "AND o.created_at >= DATEADD(day, -30, CURRENT_DATE)"
+        elif period == 'custom' and start_date and end_date:
+            date_filter = f"AND DATE(o.created_at) BETWEEN '{start_date}' AND '{end_date}'"
+        
+        # Build search filter
+        search_filter = ""
+        if search_query and search_query.strip():
+            safe_query = search_query.replace("'", "''").strip()
+            search_filter = f"""
+            AND (
+                LOWER(o.user_name) LIKE LOWER('%{safe_query}%')
+                OR o.phone_number LIKE '%{safe_query}%'
+                OR LOWER(o.order_id) LIKE LOWER('%{safe_query}%')
+            )
+            """
+        
+        query = f"""
+        SELECT 
+            o.order_id,
+            o.user_id,
+            o.user_name,
+            o.phone_number,
+            COALESCE(o.grand_total, 0) as grand_total,
+            COALESCE(o.sub_total, 0) as sub_total,
+            COALESCE(o.discount, 0) as discount,
+            COALESCE(o.coins_used, 0) as coins_used,
+            o.order_status,
+            o.payment_mode,
+            o.created_at
+        FROM loyalty.fact_orders o
+        WHERE 1=1
+        {date_filter}
+        {search_filter}
+        ORDER BY o.created_at DESC
+        LIMIT {limit} OFFSET {offset}
+        """
+        return self.execute_query(query)
+    
+    def get_orders_count(self, period: str = 'all', start_date: date = None, 
+                         end_date: date = None, search_query: str = None) -> int:
+        """Get total count of orders for pagination."""
+        date_filter = ""
+        if period == 'today':
+            date_filter = "AND DATE(created_at) = CURRENT_DATE"
+        elif period == 'month':
+            date_filter = "AND created_at >= DATEADD(day, -30, CURRENT_DATE)"
+        elif period == 'custom' and start_date and end_date:
+            date_filter = f"AND DATE(created_at) BETWEEN '{start_date}' AND '{end_date}'"
+        
+        search_filter = ""
+        if search_query and search_query.strip():
+            safe_query = search_query.replace("'", "''").strip()
+            search_filter = f"""
+            AND (
+                LOWER(user_name) LIKE LOWER('%{safe_query}%')
+                OR phone_number LIKE '%{safe_query}%'
+                OR LOWER(order_id) LIKE LOWER('%{safe_query}%')
+            )
+            """
+        
+        query = f"""
+        SELECT COUNT(*) as total
+        FROM loyalty.fact_orders
+        WHERE 1=1
+        {date_filter}
+        {search_filter}
+        """
+        results = self.execute_query(query)
+        return int(results[0]['total']) if results else 0
+    
+    def get_order_stats(self) -> Dict:
+        """Get order statistics for summary cards."""
+        query = """
+        SELECT 
+            COUNT(*) as total_orders,
+            COALESCE(SUM(grand_total), 0) as total_revenue,
+            COUNT(CASE WHEN DATE(created_at) = CURRENT_DATE THEN 1 END) as today_orders,
+            COALESCE(SUM(CASE WHEN DATE(created_at) = CURRENT_DATE THEN grand_total ELSE 0 END), 0) as today_revenue
+        FROM loyalty.fact_orders
+        WHERE order_status NOT IN ('CANCELLED', 'FAILED', 'REJECTED')
+        """
+        results = self.execute_query(query)
+        return results[0] if results else {'total_orders': 0, 'total_revenue': 0, 'today_orders': 0, 'today_revenue': 0}
 
 
 # Singleton instance
@@ -601,3 +708,12 @@ def get_top_withdrawers_by_period(limit=10, period='all'):
 def get_referral_program_roi():
     return get_redshift_service().get_referral_program_roi()
 
+# Order history functions
+def get_all_orders(limit=100, offset=0, period='all', start_date=None, end_date=None, search_query=None):
+    return get_redshift_service().get_all_orders(limit, offset, period, start_date, end_date, search_query)
+
+def get_orders_count(period='all', start_date=None, end_date=None, search_query=None):
+    return get_redshift_service().get_orders_count(period, start_date, end_date, search_query)
+
+def get_order_stats():
+    return get_redshift_service().get_order_stats()
